@@ -72,13 +72,8 @@ class Zend_Mail_InterfaceTest extends PHPUnit\Framework\TestCase
     {
         $list = new Zend_Mail_Storage_Mbox(array('filename' => $this->_mboxFile));
 
-        try {
-            $list[1] = 'test';
-        } catch (Exception $e) {
-            return; // test ok
-        }
-
-        $this->fail('no exception thrown while writing to array access');
+        $this->expectException(Exception::class);
+        $list[1] = 'test';
     }
 
     public function testIterationKey()
@@ -153,13 +148,8 @@ class Zend_Mail_InterfaceTest extends PHPUnit\Framework\TestCase
     {
         $list = new Zend_Mail_Storage_Mbox(array('filename' => $this->_mboxFile));
 
-        try {
-            $list->thisdoesnotexist;
-        } catch (Exception $e) {
-            return; // test ok
-        }
-
-        $this->fail('no exception thrown while reading wrong variable (via __get())');
+        $this->expectException(Exception::class);
+        $list->thisdoesnotexist;
     }
 
     public function testGetHeaders()
@@ -173,12 +163,7 @@ class Zend_Mail_InterfaceTest extends PHPUnit\Framework\TestCase
     {
         $list = new Zend_Mail_Storage_Mbox(array('filename' => $this->_mboxFile));
 
-        try {
-            $list[1]->thisdoesnotexist;
-        } catch (Exception $e) {
-            return; // test ok
-        }
-
-        $this->fail('no exception thrown while reading wrong header');
+        $this->expectException(Exception::class);
+        $list[1]->thisdoesnotexist;
     }
 }

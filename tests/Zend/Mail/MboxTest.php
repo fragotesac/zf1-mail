@@ -69,6 +69,9 @@ class Zend_Mail_MboxTest extends PHPUnit\Framework\TestCase
         unlink($this->_mboxFile);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testLoadOk()
     {
         try {
@@ -78,6 +81,9 @@ class Zend_Mail_MboxTest extends PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testLoadConfig()
     {
         try {
@@ -89,37 +95,25 @@ class Zend_Mail_MboxTest extends PHPUnit\Framework\TestCase
 
     public function testNoParams()
     {
-        try {
-            $mail = new Zend_Mail_Storage_Mbox(array());
-        } catch (Exception $e) {
-            return; // test ok
-        }
-
-        $this->fail('no exception raised with empty params');
+        $this->expectException(Exception::class);
+        $mail = new Zend_Mail_Storage_Mbox(array());
     }
 
     public function testLoadFailure()
     {
-        try {
-            $mail = new Zend_Mail_Storage_Mbox(array('filename' => 'ThisFileDoesNotExist'));
-        } catch (Exception $e) {
-            return; // test ok
-        }
-
-        $this->fail('no exception raised while loading unknown file');
+        $this->expectException(Exception::class);
+        $mail = new Zend_Mail_Storage_Mbox(array('filename' => 'ThisFileDoesNotExist'));
     }
 
     public function testLoadInvalid()
     {
-        try {
-            $mail = new Zend_Mail_Storage_Mbox(array('filename' => __FILE__));
-        } catch (Exception $e) {
-            return; // test ok
-        }
-
-        $this->fail('no exception while loading invalid file');
+        $this->expectException(Exception::class);
+        $mail = new Zend_Mail_Storage_Mbox(array('filename' => __FILE__));
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testClose()
     {
         $mail = new Zend_Mail_Storage_Mbox(array('filename' => $this->_mboxFile));
@@ -145,6 +139,9 @@ class Zend_Mail_MboxTest extends PHPUnit\Framework\TestCase
         $this->assertFalse($mail->hasCreate);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testNoop()
     {
         $mail = new Zend_Mail_Storage_Mbox(array('filename' => $this->_mboxFile));
@@ -221,13 +218,8 @@ class Zend_Mail_MboxTest extends PHPUnit\Framework\TestCase
     {
         $mail = new Zend_Mail_Storage_Mbox(array('filename' => $this->_mboxFile));
 
-        try {
-            $mail->removeMessage(1);
-        } catch (Exception $e) {
-            return; // test ok
-        }
-
-        $this->fail('no exception raised while deleting message (mbox is read-only)');
+        $this->expectException(Exception::class);
+        $mail->removeMessage(1);
     }
 
     public function testCapa()
@@ -251,13 +243,8 @@ class Zend_Mail_MboxTest extends PHPUnit\Framework\TestCase
     {
         $mail = new Zend_Mail_Storage_Mbox(array('filename' => $this->_mboxFile));
 
-        try {
-            $mail->seek(INF);
-        } catch (Exception $e) {
-            return; // test ok
-        }
-
-        $this->fail('no exception raised while seeking to not invalid id');
+        $this->expectException(Exception::class);
+        $mail->seek(INF);
     }
 
     public function testSleepWake()
@@ -307,6 +294,7 @@ class Zend_Mail_MboxTest extends PHPUnit\Framework\TestCase
         } catch (Exception $e) {
             $check = true;
             // test ok
+            $this->assertTrue($check);
         }
 
         chmod($this->_mboxFile, $stat['mode']);

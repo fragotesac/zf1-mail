@@ -739,33 +739,24 @@ class Zend_Mail_MailTest extends PHPUnit\Framework\TestCase
     {
         $mail = new Zend_Mail();
 
-        try {
-            $mail->setDate('invalid date');
-            $this->fail('Invalid date should throw an exception');
-        } catch (Exception $e) {
-        }
+        $this->expectException(Exception::class);
+        $mail->setDate('invalid date');
     }
 
     public function testSetDateInvalidType()
     {
         $mail = new Zend_Mail();
 
-        try {
-            $mail->setDate(true);
-            $this->fail('Invalid date should throw an exception');
-        } catch (Exception $e) {
-        }
+        $this->expectException(Exception::class);
+        $mail->setDate(true);
     }
 
     public function testSetDateInvalidObject()
     {
         $mail = new Zend_Mail();
 
-        try {
-            $mail->setDate($mail);
-            $this->fail('Invalid date should throw an exception');
-        } catch (Exception $e) {
-        }
+        $this->expectException(Exception::class);
+        $mail->setDate($mail);
     }
 
     public function testSetDateTwice()
@@ -773,11 +764,8 @@ class Zend_Mail_MailTest extends PHPUnit\Framework\TestCase
         $mail = new Zend_Mail();
 
         $mail->setDate();
-        try {
-            $mail->setDate(123456789);
-            $this->fail('setting date twice should throw an exception');
-        } catch (Exception $e) {
-        }
+        $this->expectException(Exception::class);
+        $mail->setDate(123456789);
     }
 
     public function testClearDate()
@@ -812,11 +800,8 @@ class Zend_Mail_MailTest extends PHPUnit\Framework\TestCase
         $mail = new Zend_Mail();
 
         $mail->setMessageId();
-        try {
-            $mail->setMessageId();
-            $this->fail('setting message-id twice should throw an exception');
-        } catch (Exception $e) {
-        }
+        $this->expectException(Exception::class);
+        $mail->setMessageId();
     }
 
     public function testClearMessageId()
@@ -855,6 +840,7 @@ class Zend_Mail_MailTest extends PHPUnit\Framework\TestCase
     /**
      * @group ZF-1688
      * @dataProvider dataSubjects
+     * @doesNotPerformAssertions
      */
     public function testIfLongSubjectsHaveCorrectLineBreaksAndEncodingMarks($subject)
     {
@@ -977,12 +963,8 @@ class Zend_Mail_MailTest extends PHPUnit\Framework\TestCase
 
         $transport = new Zend_Mail_Transport_Sendmail();
         $transport->parameters = true;
-        try {
-            $mail->send($transport);
-            $this->fail('Exception should have been thrown, but wasn\'t');
-        } catch(Zend_Mail_Transport_Exception $e) {
-        	// do nothing
-        }
+        $this->expectException(Zend_Mail_Transport_Exception::class);
+        $mail->send($transport);
     }
 
     /**

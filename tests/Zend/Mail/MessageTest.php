@@ -50,13 +50,8 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
 
     public function testInvalidFile()
     {
-        try {
-            $message = new Zend_Mail_Message(array('file' => '/this/file/does/not/exists'));
-        } catch (Exception $e) {
-            return; // ok
-        }
-
-        $this->fail('no exception raised while loading unknown file');
+        $this->expectException(Exception::class);
+        $message = new Zend_Mail_Message(array('file' => '/this/file/does/not/exists'));
     }
 
     public function testIsMultipart()
@@ -119,13 +114,8 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
     {
         $message = new Zend_Mail_Message(array('file' => $this->_file));
 
-        try {
-            $message->getPart(-1);
-        } catch (Exception $e) {
-            return; // ok
-        }
-
-        $this->fail('no exception raised while fetching unknown part');
+        $this->expectException(Exception::class);
+        $message->getPart(-1);
     }
 
     public function testNoHeaderMessage()
@@ -167,39 +157,22 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
 
     public function testSplitInvalidMessage()
     {
-        try {
-            Zend_Mime_Decode::splitMessageStruct("--xxx\n", 'xxx');
-        } catch (Zend_Exception $e) {
-            return; // ok
-        }
-
-        $this->fail('no exception raised while decoding invalid message');
+        $this->expectException(Zend_Exception::class);
+        Zend_Mime_Decode::splitMessageStruct("--xxx\n", 'xxx');
     }
 
     public function testInvalidMailHandler()
     {
-        try {
-            $message = new Zend_Mail_Message(array('handler' => 1));
-        } catch (Zend_Exception $e) {
-            return; // ok
-        }
-
-        $this->fail('no exception raised while using invalid mail handler');
-
+        $this->expectException(Zend_Exception::class);
+        $message = new Zend_Mail_Message(array('handler' => 1));
     }
 
     public function testMissingId()
     {
         $mail = new Zend_Mail_Storage_Mbox(array('filename' => dirname(__FILE__) . '/_files/test.mbox/INBOX'));
 
-        try {
-            $message = new Zend_Mail_Message(array('handler' => $mail));
-        } catch (Zend_Exception $e) {
-            return; // ok
-        }
-
-        $this->fail('no exception raised while mail handler without id');
-
+        $this->expectException(Zend_Exception::class);
+        $message = new Zend_Mail_Message(array('handler' => $mail));
     }
 
     public function testIterator()
@@ -235,13 +208,8 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
     public function testSplitInvalidHeader()
     {
         $header = '';
-        try {
-            Zend_Mime_Decode::splitHeaderField($header);
-        } catch (Zend_Exception $e) {
-            return; // ok
-        }
-
-        $this->fail('no exception raised while decoding invalid header field');
+        $this->expectException(Zend_Exception::class);
+        Zend_Mime_Decode::splitHeaderField($header);
     }
 
     public function testSplitMessage()
@@ -270,13 +238,8 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
     {
         $message = new Zend_Mail_Message(array('raw' => 'Subject: test'));
 
-        try {
-            $message->getContent();
-        } catch (Zend_Exception $e) {
-            return; // ok
-        }
-
-        $this->fail('no exception raised while getting content of message without body');
+        $this->expectException(Zend_Exception::class);
+        $message->getContent();
     }
 
     public function testEmptyHeader()
@@ -331,12 +294,8 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
     {
         $message = new Zend_Mail_Message(array('raw' => "Content-Type: multipart/mixed\r\n\r\ncontent"));
 
-        try {
-            $message->getPart(1);
-        } catch (Zend_Exception $e) {
-            return; // ok
-        }
-        $this->fail('no exception raised while getting part from message without boundary');
+        $this->expectException(Zend_Exception::class);
+        $message->getPart(1);
     }
 
     public function testLateFetch()
@@ -417,12 +376,8 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
     public function testGetHeaderFieldInvalid()
     {
         $message = new Zend_Mail_Message(array('file' => $this->_file));
-        try {
-            $message->getHeaderField('fake-header-name', 'foo');
-        } catch (Zend_Mail_Exception $e) {
-            return;
-        }
-        $this->fail('No exception thrown while requesting invalid field name');
+        $this->expectException(Zend_Mail_Exception::class);
+        $message->getHeaderField('fake-header-name', 'foo');
     }
 
     public function testCaseInsensitiveMultipart()

@@ -85,6 +85,9 @@ class Zend_Mail_FileTransportTest extends PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testTransportSetup()
     {
         $transport = new Zend_Mail_Transport_File();
