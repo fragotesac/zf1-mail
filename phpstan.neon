@@ -1,2 +1,4 @@
 parameters:
     ignoreErrors:
+        - '#Zend_Mail_.+::__construct\(\) does not call parent constructor from Zend_Mail_.+\.#'
+        - '#Variable \$.+ might not be defined\.#'

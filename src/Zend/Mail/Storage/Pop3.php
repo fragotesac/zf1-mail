@@ -184,7 +184,7 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
      */
     public function noop()
     {
-        return $this->_protocol->noop();
+        $this->_protocol->noop();
     }
 
     /**
