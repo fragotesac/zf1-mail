@@ -31,12 +31,6 @@ require_once 'Zend/Mail/Storage/Imap.php';
 require_once 'Zend/Mail/Protocol/Imap.php';
 
 /**
- * Zend_Config
- */
-require_once 'Zend/Config.php';
-
-
-/**
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage UnitTests

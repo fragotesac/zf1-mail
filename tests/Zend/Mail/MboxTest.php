@@ -26,12 +26,6 @@
 require_once 'Zend/Mail/Storage/Mbox.php';
 
 /**
- * @see Zend_Config
- */
-require_once 'Zend/Config.php';
-
-
-/**
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage UnitTests

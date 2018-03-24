@@ -26,11 +26,6 @@
 require_once 'Zend/Mail/Storage/Mbox.php';
 
 /**
- * Zend_Config
- */
-require_once 'Zend/Config.php';
-
-/**
  * Maildir class, which uses old message class
  *
  * @category   Zend

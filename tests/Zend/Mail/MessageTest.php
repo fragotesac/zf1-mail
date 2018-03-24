@@ -31,11 +31,6 @@ require_once 'Zend/Mail/Message.php';
 require_once 'Zend/Mail/Storage/Mbox.php';
 
 /**
- * Zend_Mime_Decode
- */
-require_once 'Zend/Mime/Decode.php';
-
-/**
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage UnitTests

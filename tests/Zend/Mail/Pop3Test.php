@@ -31,11 +31,6 @@ require_once 'Zend/Mail/Storage/Pop3.php';
 require_once 'Zend/Mail/Protocol/Pop3.php';
 
 /**
- * Zend_Config
- */
-require_once 'Zend/Config.php';
-
-/**
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage UnitTests

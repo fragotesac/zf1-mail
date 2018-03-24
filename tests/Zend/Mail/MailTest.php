@@ -46,11 +46,6 @@ require_once 'Zend/Mail/Transport/Smtp.php';
 require_once 'Zend/Date.php';
 
 /**
- * Zend_Config
- */
-require_once 'Zend/Config.php';
-
-/**
  * Mock mail transport class for testing purposes
  *
  * @category   Zend
@@ -1122,4 +1117,18 @@ class Zend_Mail_MailTest extends PHPUnit\Framework\TestCase
         }
     }
 
+    public function testZf1058WhitespaceAtEndOfBodyCausesInfiniteLoop()
+    {
+        $mail = new Zend_Mail();
+        $mail->setSubject('my subject');
+        $mail->setBodyText("my body\r\n\r\n...after two newlines\r\n ");
+        $mail->setFrom('test@email.com');
+        $mail->addTo('test@email.com');
+
+        // test with generic transport
+        $mock = new Zend_Mail_Transport_Sendmail_Mock();
+        $mail->send($mock);
+        $body = quoted_printable_decode($mock->body);
+        $this->assertContains("my body\r\n\r\n...after two newlines", $body, $body);
+    }
 }
