@@ -20,15 +20,6 @@
  * @version    $Id$
  */
 
-/**
- * Zend_Mail_Storage_Imap
- */
-require_once 'Zend/Mail/Storage/Imap.php';
-
-/**
- * Zend_Mail_Protocol_Imap
- */
-require_once 'Zend/Mail/Protocol/Imap.php';
 
 /**
  * @category   Zend

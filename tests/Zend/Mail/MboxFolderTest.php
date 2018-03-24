@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-/**
- * @see Zend_Mail_Storage_Folder_Mbox
- */
-require_once 'Zend/Mail/Storage/Folder/Mbox.php';
 
 /**
  * @category   Zend

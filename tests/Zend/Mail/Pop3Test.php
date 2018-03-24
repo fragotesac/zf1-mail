@@ -20,15 +20,6 @@
  * @version    $Id$
  */
 
-/**
- * Zend_Mail_Storage_Pop3
- */
-require_once 'Zend/Mail/Storage/Pop3.php';
-
-/**
- * Zend_Mail_Protocol_Pop3
- */
-require_once 'Zend/Mail/Protocol/Pop3.php';
 
 /**
  * @category   Zend

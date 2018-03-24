@@ -20,30 +20,6 @@
  * @version    $Id $
  */
 
-/**
- * Zend_Mail
- */
-require_once 'Zend/Mail.php';
-
-/**
- * Zend_Mail_Transport_Abstract
- */
-require_once 'Zend/Mail/Transport/Abstract.php';
-
-/**
- * Zend_Mail_Transport_Sendmail
- */
-require_once 'Zend/Mail/Transport/Sendmail.php';
-
-/**
- * Zend_Mail_Transport_Smtp
- */
-require_once 'Zend/Mail/Transport/Smtp.php';
-
-/**
- * Zend_Date
- */
-require_once 'Zend/Date.php';
 
 /**
  * Mock mail transport class for testing purposes

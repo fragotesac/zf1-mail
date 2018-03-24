@@ -20,16 +20,6 @@
  * @version    $Id$
  */
 
-/**
- * Zend_Mail_Protocol_Smtp
- */
-require_once 'Zend/Mail/Protocol/Smtp.php';
-
-
-/**
- * Zend_Mail_Transport_Smtp
- */
-require_once 'Zend/Mail/Transport/Smtp.php';
 
 /**
  * @category   Zend

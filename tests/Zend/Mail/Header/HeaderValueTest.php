@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-/**
- * Zend_Mail_Message
- */
-require_once 'Zend/Mail/Header/HeaderValue.php';
 
 class Zend_Mail_Header_HeaderValueTest extends PHPUnit\Framework\TestCase
 {

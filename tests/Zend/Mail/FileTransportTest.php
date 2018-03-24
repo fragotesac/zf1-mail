@@ -20,15 +20,6 @@
  * @version    $Id$
  */
 
-/**
- * Zend_Mail
- */
-require_once 'Zend/Mail.php';
-
-/**
- * Zend_Mail_Transport_File
- */
-require_once 'Zend/Mail/Transport/File.php';
 
 /**
  * @category   Zend

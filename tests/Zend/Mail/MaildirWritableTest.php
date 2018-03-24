@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-/**
- * Zend_Mail_Storage_Folder_Maildir
- */
-require_once 'Zend/Mail/Storage/Writable/Maildir.php';
 
 /**
  * @category   Zend

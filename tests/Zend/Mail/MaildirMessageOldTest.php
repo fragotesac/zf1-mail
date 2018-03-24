@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-/**
- * Zend_Mail_Storage_Maildir
- */
-require_once 'Zend/Mail/Storage/Maildir.php';
 
 /**
  * Maildir class, which uses old message class

@@ -20,15 +20,6 @@
  * @version    $Id$
  */
 
-/**
- * Zend_Mail_Message
- */
-require_once 'Zend/Mail/Message.php';
-
-/**
- * Zend_Mail_Storage_Mbox
- */
-require_once 'Zend/Mail/Storage/Mbox.php';
 
 /**
  * @category   Zend
