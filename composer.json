@@ -16,8 +16,8 @@
         "diablomedia/zendframework1-config": "^1.0.0",
         "diablomedia/zendframework1-loader": "^1.0.0",
         "diablomedia/zendframework1-mime": "^1.0.0",
-        "diablomedia/zendframework1-validate": "dev-master",
-        "diablomedia/zendframework1-date": "dev-master"
+        "diablomedia/zendframework1-validate": "*",
+        "diablomedia/zendframework1-date": "*"
     },
     "autoload": {
         "psr-0": {
