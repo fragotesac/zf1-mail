@@ -56,7 +56,7 @@ class Zend_Mail_MaildirMessageOldTest extends PHPUnit\Framework\TestCase
     public function setUp()
     {
         if (!(defined('TESTS_ZEND_MAIL_MAILDIR_ENABLED') && constant('TESTS_ZEND_MAIL_MAILDIR_ENABLED'))) {
-            $this->markTestSkipped("Test not enabled in TestConfiguration.php");
+            $this->markTestSkipped('Test not enabled in TestConfiguration.php');
         }
 
         $this->_originalMaildir = dirname(__FILE__) . '/_files/test.maildir/';
@@ -76,7 +76,7 @@ class Zend_Mail_MaildirMessageOldTest extends PHPUnit\Framework\TestCase
                 mkdir($this->_tmpdir);
             }
             $count = 0;
-            $dh = opendir($this->_tmpdir);
+            $dh    = opendir($this->_tmpdir);
             while (readdir($dh) !== false) {
                 ++$count;
             }
@@ -128,15 +128,15 @@ class Zend_Mail_MaildirMessageOldTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('Simple Message', $subject);
     }
 
-/*
-    public function testFetchTopBody()
-    {
-        $mail = new Zend_Mail_Storage_Maildir_OldMessage(array('dirname' => $this->_maildir));
+    /*
+        public function testFetchTopBody()
+        {
+            $mail = new Zend_Mail_Storage_Maildir_OldMessage(array('dirname' => $this->_maildir));
 
-        $content = $mail->getHeader(3, 1)->getContent();
-        $this->assertEquals('Fair river! in thy bright, clear flow', trim($content));
-    }
-*/
+            $content = $mail->getHeader(3, 1)->getContent();
+            $this->assertEquals('Fair river! in thy bright, clear flow', trim($content));
+        }
+    */
     public function testFetchMessageHeader()
     {
         $mail = new Zend_Mail_Storage_Maildir_OldMessage(array('dirname' => $this->_maildir));
@@ -149,7 +149,7 @@ class Zend_Mail_MaildirMessageOldTest extends PHPUnit\Framework\TestCase
     {
         $mail = new Zend_Mail_Storage_Maildir_OldMessage(array('dirname' => $this->_maildir));
 
-        $content = $mail->getMessage(3)->getContent();
+        $content         = $mail->getMessage(3)->getContent();
         list($content, ) = explode("\n", $content, 2);
         $this->assertEquals('Fair river! in thy bright, clear flow', trim($content));
     }

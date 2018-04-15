@@ -111,7 +111,7 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
             $this->_auth = $config['auth'];
         }
 
-        $this->_host = $host;
+        $this->_host   = $host;
         $this->_config = $config;
     }
 

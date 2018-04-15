@@ -124,7 +124,7 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
         if (strtolower($this->_messageClass) == 'zend_mail_message_file' || is_subclass_of($this->_messageClass, 'zend_mail_message_file')) {
             // TODO top/body lines
             $messagePos = $this->_getPos($id);
-            return new $this->_messageClass(array('file' => $this->_fh, 'startPos' => $messagePos['start'],
+            return new $this->_messageClass(array('file'   => $this->_fh, 'startPos' => $messagePos['start'],
                                                   'endPos' => $messagePos['end']));
         }
 
@@ -256,7 +256,7 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
         if (!$this->_fh) {
             throw new Zend_Mail_Storage_Exception('cannot open mbox file');
         }
-        $this->_filename = $filename;
+        $this->_filename  = $filename;
         $this->_filemtime = filemtime($this->_filename);
 
         if (!$this->_isMboxFile($this->_fh, false)) {
@@ -272,7 +272,7 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
                     $messagePos['separator'] = $messagePos['end'];
                 }
                 $this->_positions[] = $messagePos;
-                $messagePos = array('start' => ftell($this->_fh), 'separator' => 0, 'end' => 0);
+                $messagePos         = array('start' => ftell($this->_fh), 'separator' => 0, 'end' => 0);
             }
             if (!$messagePos['separator'] && !trim($line)) {
                 $messagePos['separator'] = ftell($this->_fh);
@@ -394,5 +394,4 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
             }
         }
     }
-
 }

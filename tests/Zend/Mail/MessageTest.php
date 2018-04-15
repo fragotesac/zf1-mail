@@ -36,8 +36,8 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
     public function setUp()
     {
         $this->_file = tempnam(sys_get_temp_dir(), 'zm_');
-        $mail = file_get_contents(dirname(__FILE__) . '/_files/mail.txt');
-        $mail = preg_replace("/(?<!\r)\n/", "\r\n", $mail);
+        $mail        = file_get_contents(dirname(__FILE__) . '/_files/mail.txt');
+        $mail        = preg_replace("/(?<!\r)\n/", "\r\n", $mail);
         file_put_contents($this->_file, $mail);
     }
 
@@ -88,7 +88,7 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
 
     public function testGetHeaderFromOpenFile()
     {
-        $fh = fopen($this->_file, 'r');
+        $fh      = fopen($this->_file, 'r');
         $message = new Zend_Mail_Message(array('file' => $fh));
 
         $this->assertEquals($message->subject, 'multipart');
@@ -124,8 +124,8 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
 
         $this->assertEquals(substr($message->getContent(), 0, 5), '<?php');
 
-        $raw = file_get_contents(__FILE__);
-        $raw = "\t" . $raw;
+        $raw     = file_get_contents(__FILE__);
+        $raw     = "\t" . $raw;
         $message = new Zend_Mail_Message(array('raw' => $raw));
 
         $this->assertEquals(substr($message->getContent(), 0, 6), "\t<?php");
@@ -133,21 +133,25 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
 
     public function testMultipleHeader()
     {
-        $raw = file_get_contents($this->_file);
-        $raw = "sUBject: test\nSubJect: test2\n" . $raw;
+        $raw     = file_get_contents($this->_file);
+        $raw     = "sUBject: test\nSubJect: test2\n" . $raw;
         $message = new Zend_Mail_Message(array('raw' => $raw));
 
-        $this->assertEquals($message->getHeader('subject', 'string'),
-                           'test' . Zend_Mime::LINEEND . 'test2' . Zend_Mime::LINEEND .  'multipart');
-        $this->assertEquals($message->getHeader('subject'),  array('test', 'test2', 'multipart'));
+        $this->assertEquals(
+            $message->getHeader('subject', 'string'),
+                           'test' . Zend_Mime::LINEEND . 'test2' . Zend_Mime::LINEEND . 'multipart'
+        );
+        $this->assertEquals($message->getHeader('subject'), array('test', 'test2', 'multipart'));
     }
 
     public function testContentTypeDecode()
     {
         $message = new Zend_Mail_Message(array('file' => $this->_file));
 
-        $this->assertEquals(Zend_Mime_Decode::splitContentType($message->ContentType),
-                            array('type' => 'multipart/alternative', 'boundary' => 'crazy-multipart'));
+        $this->assertEquals(
+            Zend_Mime_Decode::splitContentType($message->ContentType),
+                            array('type' => 'multipart/alternative', 'boundary' => 'crazy-multipart')
+        );
     }
 
     public function testSplitEmptyMessage()
@@ -214,8 +218,8 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
 
     public function testSplitMessage()
     {
-        $header = 'Test: test';
-        $body   = 'body';
+        $header   = 'Test: test';
+        $body     = 'body';
         $newlines = array("\r\n", "\n\r", "\n", "\r");
 
         foreach ($newlines as $contentEOL) {
@@ -262,7 +266,7 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
     public function testEmptyBody()
     {
         $message = new Zend_Mail_Message(array());
-        $part = null;
+        $part    = null;
         try {
             $part = $message->getPart(1);
         } catch (Zend_Exception $e) {
@@ -283,10 +287,10 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
     {
         $message = new Zend_Mail_Message(array('headers' => array('subject' => 'foo')));
 
-        $this->assertTrue( $message->headerExists('subject'));
-        $this->assertTrue( isset($message->subject) );
-        $this->assertTrue( $message->headerExists('SuBject'));
-        $this->assertTrue( isset($message->suBjeCt) );
+        $this->assertTrue($message->headerExists('subject'));
+        $this->assertTrue(isset($message->subject));
+        $this->assertTrue($message->headerExists('SuBject'));
+        $this->assertTrue(isset($message->suBjeCt));
         $this->assertFalse($message->headerExists('From'));
     }
 
@@ -423,7 +427,7 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
     {
         $message = new Zend_Mail_Message(array('file' => $this->_file));
         $this->assertGreaterThan(0, count($message));
-        foreach ( $message as $part ) {
+        foreach ($message as $part) {
             $this->assertEquals('Zend_Mail_Part', get_class($part));
         }
     }
@@ -441,7 +445,7 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
 
         // Ensure message parts use the specified part class
         $this->assertGreaterThan(0, count($message));
-        foreach ( $message as $part ) {
+        foreach ($message as $part) {
             $this->assertEquals('ZF3745_Mail_Part', get_class($part));
         }
     }
@@ -457,7 +461,7 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
 
         // Ensure message parts use the specified part class
         $this->assertGreaterThan(0, count($message));
-        foreach ( $message as $part ) {
+        foreach ($message as $part) {
             $this->assertEquals('ZF3745_Mail_Part', get_class($part));
         }
     }
@@ -493,7 +497,7 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
 class ZF11514_Mail_Message extends Zend_Mail_Message
 {
     protected $_flags = array(
-        'default'=>'yes!'
+        'default' => 'yes!'
     );
 }
 

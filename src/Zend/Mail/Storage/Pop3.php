@@ -75,9 +75,9 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
     public function getMessage($id)
     {
         $bodyLines = 0;
-        $message = $this->_protocol->top($id, $bodyLines, true);
+        $message   = $this->_protocol->top($id, $bodyLines, true);
 
-        return new $this->_messageClass(array('handler' => $this, 'id' => $id, 'headers' => $message,
+        return new $this->_messageClass(array('handler'    => $this, 'id' => $id, 'headers' => $message,
                                               'noToplines' => $bodyLines < 1));
     }
 
@@ -274,7 +274,7 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
                 // need to make a real call, because not all server are honest in their capas
                 try {
                     $this->_protocol->top(1, 0, false);
-                } catch(Zend_Mail_Exception $e) {
+                } catch (Zend_Mail_Exception $e) {
                     // ignoring error
                 }
             }
@@ -286,7 +286,7 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
             $id = null;
             try {
                 $id = $this->_protocol->uniqueid(1);
-            } catch(Zend_Mail_Exception $e) {
+            } catch (Zend_Mail_Exception $e) {
                 // ignoring error
             }
             $this->_has['uniqueid'] = $id ? true : false;

@@ -358,25 +358,24 @@ abstract class Zend_Mail_Protocol_Abstract
     protected function _expect($code, $timeout = null)
     {
         $this->_response = array();
-        $cmd  = '';
-        $more = '';
-        $msg  = '';
-        $errMsg = '';
+        $cmd             = '';
+        $more            = '';
+        $msg             = '';
+        $errMsg          = '';
 
         if (!is_array($code)) {
             $code = array($code);
         }
 
         do {
-            $this->_response[] = $result = $this->_receive($timeout);
+            $this->_response[]      = $result      = $this->_receive($timeout);
             list($cmd, $more, $msg) = preg_split('/([\s-]+)/', $result, 2, PREG_SPLIT_DELIM_CAPTURE);
 
             if ($errMsg !== '') {
                 $errMsg .= ' ' . $msg;
             } elseif ($cmd === null || !in_array($cmd, $code)) {
-                $errMsg =  $msg;
+                $errMsg = $msg;
             }
-
         } while (strpos($more, '-') === 0); // The '-' message prefix indicates an information string instead of a response string.
 
         if ($errMsg !== '') {
@@ -394,6 +393,6 @@ abstract class Zend_Mail_Protocol_Abstract
      */
     protected function _setStreamTimeout($timeout)
     {
-       return stream_set_timeout($this->_socket, $timeout);
+        return stream_set_timeout($this->_socket, $timeout);
     }
 }

@@ -336,11 +336,11 @@ class Zend_Mail extends Zend_Mime_Message
             $charset = $this->_charset;
         }
 
-        $mp = new Zend_Mime_Part($txt);
-        $mp->encoding = $encoding;
-        $mp->type = Zend_Mime::TYPE_TEXT;
+        $mp              = new Zend_Mime_Part($txt);
+        $mp->encoding    = $encoding;
+        $mp->type        = Zend_Mime::TYPE_TEXT;
         $mp->disposition = Zend_Mime::DISPOSITION_INLINE;
-        $mp->charset = $charset;
+        $mp->charset     = $charset;
 
         $this->_bodyText = $mp;
 
@@ -378,11 +378,11 @@ class Zend_Mail extends Zend_Mime_Message
             $charset = $this->_charset;
         }
 
-        $mp = new Zend_Mime_Part($html);
-        $mp->encoding = $encoding;
-        $mp->type = Zend_Mime::TYPE_HTML;
+        $mp              = new Zend_Mime_Part($html);
+        $mp->encoding    = $encoding;
+        $mp->type        = Zend_Mime::TYPE_HTML;
         $mp->disposition = Zend_Mime::DISPOSITION_INLINE;
-        $mp->charset = $charset;
+        $mp->charset     = $charset;
 
         $this->_bodyHtml = $mp;
 
@@ -433,18 +433,18 @@ class Zend_Mail extends Zend_Mime_Message
      * @return Zend_Mime_Part Newly created Zend_Mime_Part object (to allow
      * advanced settings)
      */
-    public function createAttachment($body,
-                                     $mimeType    = Zend_Mime::TYPE_OCTETSTREAM,
-                                     $disposition = Zend_Mime::DISPOSITION_ATTACHMENT,
-                                     $encoding    = Zend_Mime::ENCODING_BASE64,
-                                     $filename    = null)
-    {
-
-        $mp = new Zend_Mime_Part($body);
-        $mp->encoding = $encoding;
-        $mp->type = $mimeType;
+    public function createAttachment(
+        $body,
+        $mimeType = Zend_Mime::TYPE_OCTETSTREAM,
+        $disposition = Zend_Mime::DISPOSITION_ATTACHMENT,
+        $encoding = Zend_Mime::ENCODING_BASE64,
+        $filename = null
+    ) {
+        $mp              = new Zend_Mime_Part($body);
+        $mp->encoding    = $encoding;
+        $mp->type        = $mimeType;
         $mp->disposition = $disposition;
-        $mp->filename = $filename;
+        $mp->filename    = $filename;
 
         $this->addAttachment($mp);
 
@@ -504,7 +504,6 @@ class Zend_Mail extends Zend_Mime_Message
         if ($append) {
             $this->_headers[$headerName]['append'] = true;
         }
-
     }
 
     /**
@@ -542,7 +541,7 @@ class Zend_Mail extends Zend_Mime_Message
      * @param  string $name
      * @return $this Provides fluent interface
      */
-    public function addTo($email, $name='')
+    public function addTo($email, $name = '')
     {
         if (!is_array($email)) {
             $email = array($name => $email);
@@ -564,7 +563,7 @@ class Zend_Mail extends Zend_Mime_Message
      * @param  string    $name
      * @return $this Provides fluent interface
      */
-    public function addCc($email, $name='')
+    public function addCc($email, $name = '')
     {
         if (!is_array($email)) {
             $email = array($name => $email);
@@ -614,7 +613,7 @@ class Zend_Mail extends Zend_Mime_Message
      */
     public function clearHeader($headerName)
     {
-        if (isset($this->_headers[$headerName])){
+        if (isset($this->_headers[$headerName])) {
             unset($this->_headers[$headerName]);
         }
         return $this;
@@ -628,7 +627,7 @@ class Zend_Mail extends Zend_Mime_Message
     public function clearRecipients()
     {
         $this->_recipients = array();
-        $this->_to = array();
+        $this->_to         = array();
 
         $this->clearHeader('To');
         $this->clearHeader('Cc');
@@ -651,8 +650,8 @@ class Zend_Mail extends Zend_Mime_Message
             throw new Zend_Mail_Exception('From Header set twice');
         }
 
-        $email = $this->_filterEmail($email);
-        $name  = $this->_filterName($name);
+        $email       = $this->_filterEmail($email);
+        $name        = $this->_filterName($name);
         $this->_from = $email;
         $this->_storeHeader('From', $this->_formatAddress($email, $name), true);
 
@@ -673,8 +672,8 @@ class Zend_Mail extends Zend_Mime_Message
             throw new Zend_Mail_Exception('Reply-To Header set twice');
         }
 
-        $email = $this->_filterEmail($email);
-        $name  = $this->_filterName($name);
+        $email          = $this->_filterEmail($email);
+        $name           = $this->_filterName($name);
         $this->_replyTo = $email;
         $this->_storeHeader('Reply-To', $this->_formatAddress($email, $name), true);
 
@@ -714,11 +713,11 @@ class Zend_Mail extends Zend_Mime_Message
         return $this;
     }
 
-     /**
-      * Clears the current Reply-To address from the message
-      *
-      * @return $this Provides fluent interface
-      */
+    /**
+     * Clears the current Reply-To address from the message
+     *
+     * @return $this Provides fluent interface
+     */
     public function clearReplyTo()
     {
         $this->_replyTo = null;
@@ -765,11 +764,13 @@ class Zend_Mail extends Zend_Mime_Message
      * @return $this Provides fluent interface
      * @throws Zend_Mail_Exception
      */
-    public function setFromToDefaultFrom() {
+    public function setFromToDefaultFrom()
+    {
         $from = self::getDefaultFrom();
-        if($from === null) {
+        if ($from === null) {
             throw new Zend_Mail_Exception(
-                'No default From Address set to use');
+                'No default From Address set to use'
+            );
         }
 
         $this->setFrom($from['email'], $from['name']);
@@ -815,11 +816,13 @@ class Zend_Mail extends Zend_Mime_Message
      * @return $this Provides fluent interface
      * @throws Zend_Mail_Exception
      */
-    public function setReplyToFromDefault() {
+    public function setReplyToFromDefault()
+    {
         $replyTo = self::getDefaultReplyTo();
-        if($replyTo === null) {
+        if ($replyTo === null) {
             throw new Zend_Mail_Exception(
-                'No default Reply-To Address set to use');
+                'No default Reply-To Address set to use'
+            );
         }
 
         $this->setReplyTo($replyTo['email'], $replyTo['name']);
@@ -837,7 +840,7 @@ class Zend_Mail extends Zend_Mime_Message
     public function setReturnPath($email)
     {
         if ($this->_returnPath === null) {
-            $email = $this->_filterEmail($email);
+            $email             = $this->_filterEmail($email);
             $this->_returnPath = $email;
             $this->_storeHeader('Return-Path', $email, false);
         } else {
@@ -885,7 +888,7 @@ class Zend_Mail extends Zend_Mime_Message
     public function setSubject($subject)
     {
         if ($this->_subject === null) {
-            $subject = $this->_filterOther($subject);
+            $subject        = $this->_filterOther($subject);
             $this->_subject = $this->_encodeHeader($subject);
             $this->_storeHeader('Subject', $this->_subject);
         } else {
@@ -930,16 +933,16 @@ class Zend_Mail extends Zend_Mime_Message
         if ($this->_date === null) {
             if ($date === null) {
                 $date = date('r');
-            } else if (is_int($date)) {
+            } elseif (is_int($date)) {
                 $date = date('r', $date);
-            } else if (is_string($date)) {
+            } elseif (is_string($date)) {
                 $date = strtotime($date);
                 if ($date === false || $date < 0) {
                     throw new Zend_Mail_Exception('String representations of Date Header must be ' .
                                                   'strtotime()-compatible');
                 }
                 $date = date('r', $date);
-            } else if ($date instanceof Zend_Date) {
+            } elseif ($date instanceof Zend_Date) {
                 $date = $date->get(Zend_Date::RFC_2822);
             } else {
                 throw new Zend_Mail_Exception(__METHOD__ . ' only accepts UNIX timestamps, Zend_Date objects, ' .
@@ -996,7 +999,7 @@ class Zend_Mail extends Zend_Mime_Message
         }
 
         if ($this->_messageId === null) {
-            $id = $this->_filterOther($id);
+            $id               = $this->_filterOther($id);
             $this->_messageId = $id;
             $this->_storeHeader('Message-Id', '<' . $this->_messageId . '>');
         } else {
@@ -1035,8 +1038,8 @@ class Zend_Mail extends Zend_Mime_Message
      *
      * @return string
      */
-    public function createMessageId() {
-
+    public function createMessageId()
+    {
         $time = time();
 
         if ($this->_from !== null) {
@@ -1055,8 +1058,8 @@ class Zend_Mail extends Zend_Mime_Message
             $recipient = 'unknown';
         }
 
-        if (isset($_SERVER["SERVER_NAME"])) {
-            $hostName = $_SERVER["SERVER_NAME"];
+        if (isset($_SERVER['SERVER_NAME'])) {
+            $hostName = $_SERVER['SERVER_NAME'];
         } else {
             $hostName = php_uname('n');
         }
@@ -1122,11 +1125,11 @@ class Zend_Mail extends Zend_Mime_Message
             $this->setDate();
         }
 
-        if(null === $this->_from && null !== self::getDefaultFrom()) {
+        if (null === $this->_from && null !== self::getDefaultFrom()) {
             $this->setFromToDefaultFrom();
         }
 
-        if(null === $this->_replyTo && null !== self::getDefaultReplyTo()) {
+        if (null === $this->_replyTo && null !== self::getDefaultReplyTo()) {
             $this->setReplyToFromDefault();
         }
 
@@ -1203,7 +1206,7 @@ class Zend_Mail extends Zend_Mime_Message
             return $email;
         } else {
             $encodedName = $this->_encodeHeader($name);
-            if ($encodedName === $name  &&  strcspn($name, '()<>[]:;@\\,.') != strlen($name)) {
+            if ($encodedName === $name && strcspn($name, '()<>[]:;@\\,.') != strlen($name)) {
                 $format = '"%s" <%s>';
             } else {
                 $format = '%s <%s>';
@@ -1211,5 +1214,4 @@ class Zend_Mail extends Zend_Mime_Message
             return sprintf($format, $encodedName, $email);
         }
     }
-
 }

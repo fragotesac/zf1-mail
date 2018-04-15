@@ -98,7 +98,7 @@ class Zend_Mail_Storage_Folder_Mbox extends Zend_Mail_Storage_Mbox implements Ze
     {
         if (!$parentFolder) {
             $this->_rootFolder = new Zend_Mail_Storage_Folder('/', '/', false);
-            $parentFolder = $this->_rootFolder;
+            $parentFolder      = $this->_rootFolder;
         }
 
         $dh = @opendir($currentDir);
@@ -111,7 +111,7 @@ class Zend_Mail_Storage_Folder_Mbox extends Zend_Mail_Storage_Mbox implements Ze
                 continue;
             }
             $absoluteEntry = $currentDir . $entry;
-            $globalName = $parentGlobalName . DIRECTORY_SEPARATOR . $entry;
+            $globalName    = $parentGlobalName . DIRECTORY_SEPARATOR . $entry;
             if (is_file($absoluteEntry) && $this->_isMboxFile($absoluteEntry)) {
                 $parentFolder->$entry = new Zend_Mail_Storage_Folder($entry, $globalName);
                 continue;
@@ -119,7 +119,7 @@ class Zend_Mail_Storage_Folder_Mbox extends Zend_Mail_Storage_Mbox implements Ze
             if (!is_dir($absoluteEntry) /* || $entry == '.' || $entry == '..' */) {
                 continue;
             }
-            $folder = new Zend_Mail_Storage_Folder($entry, $globalName, false);
+            $folder               = new Zend_Mail_Storage_Folder($entry, $globalName, false);
             $parentFolder->$entry = $folder;
             $this->_buildFolderTree($absoluteEntry . DIRECTORY_SEPARATOR, $folder, $globalName);
         }
@@ -141,10 +141,10 @@ class Zend_Mail_Storage_Folder_Mbox extends Zend_Mail_Storage_Mbox implements Ze
         }
 
         $currentFolder = $this->_rootFolder;
-        $subname = trim($rootFolder, DIRECTORY_SEPARATOR);
+        $subname       = trim($rootFolder, DIRECTORY_SEPARATOR);
         while ($currentFolder) {
             @list($entry, $subname) = @explode(DIRECTORY_SEPARATOR, $subname, 2);
-            $currentFolder = $currentFolder->$entry;
+            $currentFolder          = $currentFolder->$entry;
             if (!$subname) {
                 break;
             }
@@ -174,7 +174,7 @@ class Zend_Mail_Storage_Folder_Mbox extends Zend_Mail_Storage_Mbox implements Ze
 
         try {
             $this->_openMboxFile($this->_rootdir . $folder->getGlobalName());
-        } catch(Zend_Mail_Storage_Exception $e) {
+        } catch (Zend_Mail_Storage_Exception $e) {
             // check what went wrong
             if (!$folder->isSelectable()) {
                 throw new Zend_Mail_Storage_Exception("{$this->_currentFolder} is not selectable", 0, $e);

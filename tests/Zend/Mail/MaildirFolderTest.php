@@ -39,7 +39,7 @@ class Zend_Mail_MaildirFolderTest extends PHPUnit\Framework\TestCase
     public function setUp()
     {
         if (!(defined('TESTS_ZEND_MAIL_MAILDIR_ENABLED') && constant('TESTS_ZEND_MAIL_MAILDIR_ENABLED'))) {
-            $this->markTestSkipped("Test not enabled in TestConfiguration.php");
+            $this->markTestSkipped('Test not enabled in TestConfiguration.php');
         }
 
         $this->_originalDir = dirname(__FILE__) . '/_files/test.maildir/';
@@ -60,7 +60,7 @@ class Zend_Mail_MaildirFolderTest extends PHPUnit\Framework\TestCase
                 mkdir($this->_tmpdir);
             }
             $count = 0;
-            $dh = opendir($this->_tmpdir);
+            $dh    = opendir($this->_tmpdir);
             while (readdir($dh) !== false) {
                 ++$count;
             }
@@ -71,7 +71,7 @@ class Zend_Mail_MaildirFolderTest extends PHPUnit\Framework\TestCase
             }
         }
 
-        $this->_params = array();
+        $this->_params            = array();
         $this->_params['dirname'] = $this->_tmpdir;
 
         foreach ($this->_subdirs as $dir) {
@@ -219,7 +219,7 @@ class Zend_Mail_MaildirFolderTest extends PHPUnit\Framework\TestCase
 
     public function testIterator()
     {
-        $mail = new Zend_Mail_Storage_Folder_Maildir($this->_params);
+        $mail     = new Zend_Mail_Storage_Folder_Maildir($this->_params);
         $iterator = new RecursiveIteratorIterator($mail->getFolders(), RecursiveIteratorIterator::SELF_FIRST);
         // we search for this folder because we can't assume a order while iterating
         $search_folders = array('subfolder'      => 'subfolder',
@@ -241,7 +241,7 @@ class Zend_Mail_MaildirFolderTest extends PHPUnit\Framework\TestCase
 
     public function testKeyLocalName()
     {
-        $mail = new Zend_Mail_Storage_Folder_Maildir($this->_params);
+        $mail     = new Zend_Mail_Storage_Folder_Maildir($this->_params);
         $iterator = new RecursiveIteratorIterator($mail->getFolders(), RecursiveIteratorIterator::SELF_FIRST);
         // we search for this folder because we can't assume a order while iterating
         $search_folders = array('subfolder'      => 'subfolder',
@@ -263,11 +263,11 @@ class Zend_Mail_MaildirFolderTest extends PHPUnit\Framework\TestCase
 
     public function testInboxEquals()
     {
-        $mail = new Zend_Mail_Storage_Folder_Maildir($this->_params);
+        $mail     = new Zend_Mail_Storage_Folder_Maildir($this->_params);
         $iterator = new RecursiveIteratorIterator($mail->getFolders('INBOX.subfolder'), RecursiveIteratorIterator::SELF_FIRST);
         // we search for this folder because we can't assume a order while iterating
         $search_folders = array('subfolder.test' => 'test');
-        $found_folders = array();
+        $found_folders  = array();
 
         foreach ($iterator as $localName => $folder) {
             if (!isset($search_folders[$folder->getGlobalName()])) {
@@ -283,7 +283,7 @@ class Zend_Mail_MaildirFolderTest extends PHPUnit\Framework\TestCase
 
     public function testSelectable()
     {
-        $mail = new Zend_Mail_Storage_Folder_Maildir($this->_params);
+        $mail     = new Zend_Mail_Storage_Folder_Maildir($this->_params);
         $iterator = new RecursiveIteratorIterator($mail->getFolders(), RecursiveIteratorIterator::SELF_FIRST);
 
         foreach ($iterator as $localName => $folder) {
@@ -306,7 +306,7 @@ class Zend_Mail_MaildirFolderTest extends PHPUnit\Framework\TestCase
 
     public function testSize()
     {
-        $mail = new Zend_Mail_Storage_Folder_Maildir($this->_params);
+        $mail        = new Zend_Mail_Storage_Folder_Maildir($this->_params);
         $shouldSizes = array(1 => 397, 89, 694, 452, 497);
 
         $sizes = $mail->getSize();
@@ -352,7 +352,7 @@ class Zend_Mail_MaildirFolderTest extends PHPUnit\Framework\TestCase
         chmod($this->_params['dirname'] . '.subfolder', $stat['mode']);
 
         if (!$check) {
-           $this->fail('no exception while loading invalid dir with subfolder not readable');
+            $this->fail('no exception while loading invalid dir with subfolder not readable');
         }
     }
 
@@ -379,14 +379,14 @@ class Zend_Mail_MaildirFolderTest extends PHPUnit\Framework\TestCase
         chmod($this->_params['dirname'], $stat['mode']);
 
         if (!$check) {
-           $this->fail('no exception while loading not readable maildir');
+            $this->fail('no exception while loading not readable maildir');
         }
     }
 
     public function testGetInvalidFolder()
     {
-        $mail = new Zend_Mail_Storage_Folder_Maildir($this->_params);
-        $root = $mail->getFolders();
+        $mail         = new Zend_Mail_Storage_Folder_Maildir($this->_params);
+        $root         = $mail->getFolders();
         $root->foobar = new Zend_Mail_Storage_Folder('foobar', DIRECTORY_SEPARATOR . 'foobar');
 
         try {
@@ -400,8 +400,8 @@ class Zend_Mail_MaildirFolderTest extends PHPUnit\Framework\TestCase
 
     public function testGetVanishedFolder()
     {
-        $mail = new Zend_Mail_Storage_Folder_Maildir($this->_params);
-        $root = $mail->getFolders();
+        $mail         = new Zend_Mail_Storage_Folder_Maildir($this->_params);
+        $root         = $mail->getFolders();
         $root->foobar = new Zend_Mail_Storage_Folder('foobar', 'foobar');
 
         try {
@@ -415,8 +415,8 @@ class Zend_Mail_MaildirFolderTest extends PHPUnit\Framework\TestCase
 
     public function testGetNotSelectableFolder()
     {
-        $mail = new Zend_Mail_Storage_Folder_Maildir($this->_params);
-        $root = $mail->getFolders();
+        $mail         = new Zend_Mail_Storage_Folder_Maildir($this->_params);
+        $root         = $mail->getFolders();
         $root->foobar = new Zend_Mail_Storage_Folder('foobar', 'foobar', false);
 
         try {

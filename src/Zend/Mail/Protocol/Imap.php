@@ -55,7 +55,7 @@ class Zend_Mail_Protocol_Imap
      * @param  bool     $ssl   use ssl? 'SSL', 'TLS' or false
      * @throws Zend_Mail_Protocol_Exception
      */
-    function __construct($host = '', $port = null, $ssl = false)
+    public function __construct($host = '', $port = null, $ssl = false)
     {
         if ($host) {
             $this->connect($host, $port, $ssl);
@@ -89,8 +89,8 @@ class Zend_Mail_Protocol_Imap
             $port = $ssl === 'SSL' ? 993 : 143;
         }
 
-        $errno  =  0;
-        $errstr = '';
+        $errno         = 0;
+        $errstr        = '';
         $this->_socket = @fsockopen($host, $port, $errno, $errstr, self::TIMEOUT_CONNECTION);
         if (!$this->_socket) {
             throw new Zend_Mail_Protocol_Exception('cannot connect to host; error = ' . $errstr .
@@ -167,7 +167,7 @@ class Zend_Mail_Protocol_Imap
     protected function _decodeLine($line)
     {
         $tokens = array();
-        $stack = array();
+        $stack  = array();
 
         /*
             We start to decode the response here. The unterstood tokens are:
@@ -190,18 +190,18 @@ class Zend_Mail_Protocol_Imap
             while ($token[0] == '(') {
                 array_push($stack, $tokens);
                 $tokens = array();
-                $token = substr($token, 1);
+                $token  = substr($token, 1);
             }
             if ($token[0] == '"') {
                 if (preg_match('%^\(*"((.|\\\\|\\")*?)" *%', $line, $matches)) {
                     $tokens[] = $matches[1];
-                    $line = substr($line, strlen($matches[0]));
+                    $line     = substr($line, strlen($matches[0]));
                     continue;
                 }
             }
             if ($token[0] == '{') {
                 $endPos = strpos($token, '}');
-                $chars = substr($token, 1, $endPos - 1);
+                $chars  = substr($token, 1, $endPos - 1);
                 if (is_numeric($chars)) {
                     $token = '';
                     while (strlen($token) < $chars) {
@@ -209,43 +209,43 @@ class Zend_Mail_Protocol_Imap
                     }
                     $line = '';
                     if (strlen($token) > $chars) {
-                        $line = substr($token, $chars);
+                        $line  = substr($token, $chars);
                         $token = substr($token, 0, $chars);
                     } else {
                         $line .= $this->_nextLine();
                     }
                     $tokens[] = $token;
-                    $line = trim($line) . ' ';
+                    $line     = trim($line) . ' ';
                     continue;
                 }
             }
             if ($stack && $token[strlen($token) - 1] == ')') {
                 // closing braces are not seperated by spaces, so we need to count them
                 $braces = strlen($token);
-                $token = rtrim($token, ')');
+                $token  = rtrim($token, ')');
                 // only count braces if more than one
                 $braces -= strlen($token) + 1;
                 // only add if token had more than just closing braces
                 if (rtrim($token) != '') {
                     $tokens[] = rtrim($token);
                 }
-                $token = $tokens;
+                $token  = $tokens;
                 $tokens = array_pop($stack);
                 // special handline if more than one closing brace
                 while ($braces-- > 0) {
                     $tokens[] = $token;
-                    $token = $tokens;
-                    $tokens = array_pop($stack);
+                    $token    = $tokens;
+                    $tokens   = array_pop($stack);
                 }
             }
             $tokens[] = $token;
-            $line = substr($line, $pos + 1);
+            $line     = substr($line, $pos + 1);
         }
 
         // maybe the server forgot to send some closing braces
         while ($stack) {
-            $child = $tokens;
-            $tokens = array_pop($stack);
+            $child    = $tokens;
+            $tokens   = array_pop($stack);
             $tokens[] = $child;
         }
 
@@ -300,7 +300,7 @@ class Zend_Mail_Protocol_Imap
         // last line has response code
         if ($tokens[0] == 'OK') {
             return $lines ? $lines : true;
-        } else if ($tokens[0] == 'NO'){
+        } elseif ($tokens[0] == 'NO') {
             return false;
         }
         return null;
@@ -540,15 +540,15 @@ class Zend_Mail_Protocol_Imap
     {
         if (is_array($from)) {
             $set = implode(',', $from);
-        } else if ($to === null) {
+        } elseif ($to === null) {
             $set = (int)$from;
-        } else if ($to === INF) {
+        } elseif ($to === INF) {
             $set = (int)$from . ':*';
         } else {
             $set = (int)$from . ':' . (int)$to;
         }
 
-        $items = (array)$items;
+        $items    = (array)$items;
         $itemList = $this->escapeList($items);
 
         $this->sendRequest('FETCH', array($set, $itemList), $tag);
@@ -615,7 +615,7 @@ class Zend_Mail_Protocol_Imap
     public function listMailbox($reference = '', $mailbox = '*')
     {
         $result = array();
-        $list = $this->requestAndResponse('LIST', $this->escapeString($reference, $mailbox));
+        $list   = $this->requestAndResponse('LIST', $this->escapeString($reference, $mailbox));
         if (!$list || $list === true) {
             return $result;
         }
@@ -653,7 +653,7 @@ class Zend_Mail_Protocol_Imap
         }
 
         $flags = $this->escapeList($flags);
-        $set = (int)$from;
+        $set   = (int)$from;
         if ($to != null) {
             $set .= ':' . ($to == INF ? '*' : (int)$to);
         }
@@ -688,7 +688,7 @@ class Zend_Mail_Protocol_Imap
      */
     public function append($folder, $message, $flags = null, $date = null)
     {
-        $tokens = array();
+        $tokens   = array();
         $tokens[] = $this->escapeString($folder);
         if ($flags !== null) {
             $tokens[] = $this->escapeList($flags);
@@ -800,5 +800,4 @@ class Zend_Mail_Protocol_Imap
         }
         return array();
     }
-
 }

@@ -91,7 +91,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
      */
     public function testMail()
     {
-        $p = $this->_protocol;
+        $p              = $this->_protocol;
         $expectedDialog = $this->_connectAndEhlo();
 
         $expectedDialog[] = 'MAIL FROM:<from@example.com>';
@@ -106,7 +106,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
      */
     public function testRcptExpects250()
     {
-        $p = $this->_protocol;
+        $p              = $this->_protocol;
         $expectedDialog = $this->_connectAndEhlo();
 
         $expectedDialog[] = 'MAIL FROM:<from@example.com>';
@@ -125,7 +125,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
      */
     public function testRcptExpects251()
     {
-        $p = $this->_protocol;
+        $p              = $this->_protocol;
         $expectedDialog = $this->_connectAndEhlo();
 
         $expectedDialog[] = 'MAIL FROM:<from@example.com>';
@@ -145,7 +145,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
      */
     public function testData()
     {
-        $p = $this->_protocol;
+        $p              = $this->_protocol;
         $expectedDialog = $this->_connectAndEhlo();
 
         $expectedDialog[] = 'MAIL FROM:<from@example.com>';
@@ -174,8 +174,8 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
         $expectedDialog = $this->_connectAndEhlo();
 
         $this->_protocol->responseBuffer = array('250 OK');
-        $expectedDialog[] = 'RSET';
-        $expectedDialog[] = '250 OK';
+        $expectedDialog[]                = 'RSET';
+        $expectedDialog[]                = '250 OK';
 
         $this->_protocol->rset();
 
@@ -192,8 +192,8 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
 
         // Microsoft ESMTP server responds to RSET with 220 rather than 250
         $this->_protocol->responseBuffer = array('220 OK');
-        $expectedDialog[] = 'RSET';
-        $expectedDialog[] = '220 OK';
+        $expectedDialog[]                = 'RSET';
+        $expectedDialog[]                = '220 OK';
 
         $this->_protocol->rset();
 
@@ -205,7 +205,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
      */
     public function testQuit()
     {
-        $p = $this->_protocol;
+        $p              = $this->_protocol;
         $expectedDialog = $this->_connectAndEhlo();
 
         $expectedDialog[] = 'QUIT';
@@ -261,7 +261,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
     {
         $this->expectException(\Zend_Mail_Protocol_Exception::class);
 
-        $p = $this->_protocol;
+        $p              = $this->_protocol;
         $expectedDialog = $this->_connectAndEhlo();
 
         $expectedDialog[] = 'MAIL FROM:<from@example.com>';
@@ -330,7 +330,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit\Framework\TestCase
 
 class ProtocolMock extends Zend_Mail_Protocol_Smtp
 {
-    public $dialog = array();
+    public $dialog         = array();
     public $responseBuffer = array();
 
     /**
@@ -350,7 +350,7 @@ class ProtocolMock extends Zend_Mail_Protocol_Smtp
 
     protected function _receive($timeout = null)
     {
-        $line = array_shift($this->responseBuffer);
+        $line           = array_shift($this->responseBuffer);
         $this->dialog[] = $line;
         return $line;
     }

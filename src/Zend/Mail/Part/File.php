@@ -29,7 +29,7 @@
 class Zend_Mail_Part_File extends Zend_Mail_Part
 {
     protected $_contentPos = array();
-    protected $_partPos = array();
+    protected $_partPos    = array();
     protected $_fh;
 
     /**
@@ -85,7 +85,7 @@ class Zend_Mail_Part_File extends Zend_Mail_Part
         }
 
         $part = array();
-        $pos = $this->_contentPos[0];
+        $pos  = $this->_contentPos[0];
         fseek($this->_fh, $pos);
         while (!feof($this->_fh) && ($endPos === null || $pos < $endPos)) {
             $line = fgets($this->_fh);
@@ -97,24 +97,23 @@ class Zend_Mail_Part_File extends Zend_Mail_Part
             }
 
             $lastPos = $pos;
-            $pos = ftell($this->_fh);
-            $line = trim($line);
+            $pos     = ftell($this->_fh);
+            $line    = trim($line);
 
             if ($line == '--' . $boundary) {
                 if ($part) {
                     // not first part
-                    $part[1] = $lastPos;
+                    $part[1]          = $lastPos;
                     $this->_partPos[] = $part;
                 }
                 $part = array($pos);
-            } else if ($line == '--' . $boundary . '--') {
-                $part[1] = $lastPos;
+            } elseif ($line == '--' . $boundary . '--') {
+                $part[1]          = $lastPos;
                 $this->_partPos[] = $part;
                 break;
             }
         }
         $this->_countParts = count($this->_partPos);
-
     }
 
 
@@ -143,7 +142,8 @@ class Zend_Mail_Part_File extends Zend_Mail_Part
      *
      * @return int size
      */
-    public function getSize() {
+    public function getSize()
+    {
         return $this->_contentPos[1] - $this->_contentPos[0];
     }
 
@@ -161,7 +161,7 @@ class Zend_Mail_Part_File extends Zend_Mail_Part
             throw new Zend_Mail_Exception('part not found');
         }
 
-        return new self(array('file' => $this->_fh, 'startPos' => $this->_partPos[$num][0],
+        return new self(array('file'   => $this->_fh, 'startPos' => $this->_partPos[$num][0],
                               'endPos' => $this->_partPos[$num][1]));
     }
 }

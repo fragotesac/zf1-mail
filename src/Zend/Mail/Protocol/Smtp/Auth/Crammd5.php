@@ -78,7 +78,7 @@ class Zend_Mail_Protocol_Smtp_Auth_Crammd5 extends Zend_Mail_Protocol_Smtp
         $this->_send('AUTH CRAM-MD5');
         $challenge = $this->_expect(334);
         $challenge = base64_decode($challenge);
-        $digest = $this->_hmacMd5($this->_password, $challenge);
+        $digest    = $this->_hmacMd5($this->_password, $challenge);
         $this->_send(base64_encode($this->_username . ' ' . $digest));
         $this->_expect(235);
         $this->_auth = true;
@@ -104,7 +104,7 @@ class Zend_Mail_Protocol_Smtp_Auth_Crammd5 extends Zend_Mail_Protocol_Smtp
         $k_ipad = substr($key, 0, 64) ^ str_repeat(chr(0x36), 64);
         $k_opad = substr($key, 0, 64) ^ str_repeat(chr(0x5C), 64);
 
-        $inner = pack('H32', md5($k_ipad . $data));
+        $inner  = pack('H32', md5($k_ipad . $data));
         $digest = md5($k_opad . $inner);
 
         return $digest;

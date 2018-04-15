@@ -28,8 +28,7 @@
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
-                             implements Zend_Mail_Storage_Folder_Interface, Zend_Mail_Storage_Writable_Interface
+class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract implements Zend_Mail_Storage_Folder_Interface, Zend_Mail_Storage_Writable_Interface
 {
     // TODO: with an internal cache we could optimize this class, or create an extra class with
     // such optimizations. Especially the various fetch calls could be combined to one cache call
@@ -123,7 +122,7 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
      */
     public function getMessage($id)
     {
-        $data = $this->_protocol->fetch(array('FLAGS', 'RFC822.HEADER'), $id);
+        $data   = $this->_protocol->fetch(array('FLAGS', 'RFC822.HEADER'), $id);
         $header = $data['RFC822.HEADER'];
 
         $flags = array();
@@ -201,7 +200,7 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
             $this->_protocol = $params;
             try {
                 $this->selectFolder('INBOX');
-            } catch(Zend_Mail_Storage_Exception $e) {
+            } catch (Zend_Mail_Storage_Exception $e) {
                 throw new Zend_Mail_Storage_Exception('cannot select INBOX, is this a valid transport?', 0, $e);
             }
             return;
@@ -327,11 +326,11 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
         }
 
         ksort($folders, SORT_STRING);
-        $root = new Zend_Mail_Storage_Folder('/', '/', false);
-        $stack = array(null);
-        $folderStack = array(null);
+        $root         = new Zend_Mail_Storage_Folder('/', '/', false);
+        $stack        = array(null);
+        $folderStack  = array(null);
         $parentFolder = $root;
-        $parent = '';
+        $parent       = '';
 
         foreach ($folders as $globalName => $data) {
             do {
@@ -345,14 +344,14 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
                     $selectable = !$data['flags'] || !in_array('\\Noselect', $data['flags']);
 
                     array_push($stack, $parent);
-                    $parent = $globalName . $data['delim'];
-                    $folder = new Zend_Mail_Storage_Folder($localName, $globalName, $selectable);
+                    $parent                   = $globalName . $data['delim'];
+                    $folder                   = new Zend_Mail_Storage_Folder($localName, $globalName, $selectable);
                     $parentFolder->$localName = $folder;
                     array_push($folderStack, $parentFolder);
                     $parentFolder = $folder;
                     break;
-                } else if ($stack) {
-                    $parent = array_pop($stack);
+                } elseif ($stack) {
+                    $parent       = array_pop($stack);
                     $parentFolder = array_pop($folderStack);
                 }
             } while ($stack);
@@ -411,7 +410,7 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
         // TODO: we assume / as the hierarchy delim - need to get that from the folder class!
         if ($parentFolder instanceof Zend_Mail_Storage_Folder) {
             $folder = $parentFolder->getGlobalName() . '/' . $name;
-        } else if ($parentFolder != null) {
+        } elseif ($parentFolder != null) {
             $folder = $parentFolder . '/' . $name;
         } else {
             $folder = $name;
@@ -469,7 +468,7 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
      * @param  null|array                                 $flags   set flags for new message, else a default set is used
      * @throws Zend_Mail_Storage_Exception
      */
-     // not yet * @param string|Zend_Mail_Message|Zend_Mime_Message $message message as string or instance of message class
+    // not yet * @param string|Zend_Mail_Message|Zend_Mime_Message $message message as string or instance of message class
     public function appendMessage($message, $folder = null, $flags = null)
     {
         if ($folder === null) {
@@ -511,7 +510,8 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
      * @return void
      * @throws Zend_Mail_Storage_Exception
      */
-    public function moveMessage($id, $folder) {
+    public function moveMessage($id, $folder)
+    {
         $this->copyMessage($id, $folder);
         $this->removeMessage($id);
     }
@@ -532,4 +532,3 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
         }
     }
 }
-

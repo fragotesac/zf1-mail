@@ -97,10 +97,11 @@ class Zend_Mail_Transport_Sendmail extends Zend_Mail_Transport_Abstract
                 $this->recipients,
                 $this->_mail->getSubject(),
                 $this->body,
-                $this->header);
+                $this->header
+            );
             restore_error_handler();
         } else {
-            if(!is_string($this->parameters)) {
+            if (!is_string($this->parameters)) {
                 /**
                  * @see Zend_Mail_Transport_Exception
                  *
@@ -118,7 +119,8 @@ class Zend_Mail_Transport_Sendmail extends Zend_Mail_Transport_Abstract
                 $this->_mail->getSubject(),
                 $this->body,
                 $this->header,
-                $this->parameters);
+                $this->parameters
+            );
             restore_error_handler();
         }
 
@@ -193,5 +195,4 @@ class Zend_Mail_Transport_Sendmail extends Zend_Mail_Transport_Abstract
         $this->_errstr = $errstr;
         return true;
     }
-
 }

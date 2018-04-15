@@ -136,7 +136,7 @@ abstract class Zend_Mail_Transport_Abstract
             $this->_headers['Content-Type'] = array(
                 $type . ';'
                 . $this->EOL
-                . " " . 'boundary="' . $boundary . '"'
+                . ' ' . 'boundary="' . $boundary . '"'
             );
             $this->boundary = $boundary;
         }
@@ -219,10 +219,9 @@ abstract class Zend_Mail_Transport_Abstract
     protected function _buildBody()
     {
         if (($text = $this->_mail->getBodyText())
-            && ($html = $this->_mail->getBodyHtml()))
-        {
+            && ($html = $this->_mail->getBodyHtml())) {
             // Generate unique boundary for multipart/alternative
-            $mime = new Zend_Mime(null);
+            $mime         = new Zend_Mime(null);
             $boundaryLine = $mime->boundaryLine($this->EOL);
             $boundaryEnd  = $mime->mimeEnd($this->EOL);
 
@@ -268,7 +267,7 @@ abstract class Zend_Mail_Transport_Abstract
 
         // Get headers
         $this->_headers = $this->_mail->getHeaders();
-        $headers = $body->getHeadersArray($this->EOL);
+        $headers        = $body->getHeadersArray($this->EOL);
         foreach ($headers as $header) {
             // Headers in Zend_Mime_Part are kept as arrays with two elements, a
             // key and a value

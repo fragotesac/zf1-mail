@@ -38,7 +38,7 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
     public function setUp()
     {
         if (!(defined('TESTS_ZEND_MAIL_MAILDIR_ENABLED') && constant('TESTS_ZEND_MAIL_MAILDIR_ENABLED'))) {
-            $this->markTestSkipped("Test not enabled in TestConfiguration.php");
+            $this->markTestSkipped('Test not enabled in TestConfiguration.php');
         }
 
         $this->_originalMaildir = dirname(__FILE__) . '/_files/test.maildir/';
@@ -58,7 +58,7 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
                 mkdir($this->_tmpdir);
             }
             $count = 0;
-            $dh = opendir($this->_tmpdir);
+            $dh    = opendir($this->_tmpdir);
             while (readdir($dh) !== false) {
                 ++$count;
             }
@@ -187,7 +187,7 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
 
     public function testSize()
     {
-        $mail = new Zend_Mail_Storage_Maildir(array('dirname' => $this->_maildir));
+        $mail        = new Zend_Mail_Storage_Maildir(array('dirname' => $this->_maildir));
         $shouldSizes = array(1 => 397, 89, 694, 452, 497);
 
 
@@ -211,15 +211,15 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('Simple Message', $subject);
     }
 
-/*
-    public function testFetchTopBody()
-    {
-        $mail = new Zend_Mail_Storage_Maildir(array('dirname' => $this->_maildir));
+    /*
+        public function testFetchTopBody()
+        {
+            $mail = new Zend_Mail_Storage_Maildir(array('dirname' => $this->_maildir));
 
-        $content = $mail->getHeader(3, 1)->getContent();
-        $this->assertEquals('Fair river! in thy bright, clear flow', trim($content));
-    }
-*/
+            $content = $mail->getHeader(3, 1)->getContent();
+            $this->assertEquals('Fair river! in thy bright, clear flow', trim($content));
+        }
+    */
     public function testFetchMessageHeader()
     {
         $mail = new Zend_Mail_Storage_Maildir(array('dirname' => $this->_maildir));
@@ -232,7 +232,7 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
     {
         $mail = new Zend_Mail_Storage_Maildir(array('dirname' => $this->_maildir));
 
-        $content = $mail->getMessage(3)->getContent();
+        $content         = $mail->getMessage(3)->getContent();
         list($content, ) = explode("\n", $content, 2);
         $this->assertEquals('Fair river! in thy bright, clear flow', trim($content));
     }
@@ -302,14 +302,14 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
         $this->assertTrue($mail->hasUniqueId);
         $this->assertEquals(1, $mail->getNumberByUniqueId($mail->getUniqueId(1)));
 
-        $ids = $mail->getUniqueId();
+        $ids        = $mail->getUniqueId();
         $should_ids = array(1 => '1000000000.P1.example.org', '1000000001.P1.example.org', '1000000002.P1.example.org',
                             '1000000003.P1.example.org', '1000000004.P1.example.org');
         foreach ($ids as $num => $id) {
             $this->assertEquals($id, $should_ids[$num]);
 
             if ($mail->getNumberByUniqueId($id) != $num) {
-                    $this->fail('reverse lookup failed');
+                $this->fail('reverse lookup failed');
             }
         }
     }
@@ -347,7 +347,7 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
         }
 
         if (!$check) {
-           $this->fail('no exception while loading invalid dir with ' . $dir . ' as file');
+            $this->fail('no exception while loading invalid dir with ' . $dir . ' as file');
         }
     }
 
@@ -382,7 +382,7 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
         chmod($this->_maildir . '/' . $dir, $stat['mode']);
 
         if (!$check) {
-           $this->fail('no exception while loading invalid dir with ' . $dir . ' not readable');
+            $this->fail('no exception while loading invalid dir with ' . $dir . ' not readable');
         }
     }
 
@@ -423,7 +423,7 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
     {
         rename($this->_maildir . '/cur/1000000000.P1.example.org:2,S', $this->_maildir . '/cur/1000000000.P1.example.org,S=123:2,S');
         rename($this->_maildir . '/cur/1000000001.P1.example.org:2,FS', $this->_maildir . '/cur/1000000001.P1.example.org,S=456:2,FS');
-        $mail = new Zend_Mail_Storage_Maildir(array('dirname' => $this->_maildir));
+        $mail        = new Zend_Mail_Storage_Maildir(array('dirname' => $this->_maildir));
         $shouldSizes = array(1 => 123, 456, 694, 452, 497);
 
 
@@ -439,5 +439,4 @@ class Zend_Mail_MaildirTest extends PHPUnit\Framework\TestCase
         $size = $mail->getSize(2);
         $this->assertEquals(456, $size);
     }
-
 }

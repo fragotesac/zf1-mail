@@ -141,7 +141,7 @@ class Zend_Mail_FileTransportTest extends PHPUnit\Framework\TestCase
         $this->assertContains('To: Oleg Lobach <oleg@example.com>', $email);
         $this->assertContains('Subject: TestSubject', $email);
         $this->assertContains('From: Alexander Steshenko <alexander@example.com>', $email);
-        $this->assertContains("This is the text of the mail.", $email);
+        $this->assertContains('This is the text of the mail.', $email);
     }
 
     public function prependCallback($transport)
@@ -153,7 +153,7 @@ class Zend_Mail_FileTransportTest extends PHPUnit\Framework\TestCase
     public function testPrependToCallback()
     {
         $transport = new Zend_Mail_Transport_File(array(
-            'path' => $this->_tmpdir,
+            'path'     => $this->_tmpdir,
             'callback' => array($this, 'prependCallback')
         ));
 

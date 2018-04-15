@@ -33,6 +33,11 @@
         <const name="TESTS_ZEND_MAIL_SMTP_PASSWORD" value="testpassword" />
         <const name="TESTS_ZEND_MAIL_SMTP_AUTH" value="false" />
     </php>
+    <testsuites>
+        <testsuite name="default">
+            <directory>./tests</directory>
+        </testsuite>
+    </testsuites>
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./src</directory>

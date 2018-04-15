@@ -80,7 +80,7 @@ class Zend_Mail_Storage_Folder_Maildir extends Zend_Mail_Storage_Maildir impleme
 
         $this->_buildFolderTree();
         $this->selectFolder(!empty($params->folder) ? $params->folder : 'INBOX');
-        $this->_has['top'] = true;
+        $this->_has['top']   = true;
         $this->_has['flags'] = true;
     }
 
@@ -95,7 +95,7 @@ class Zend_Mail_Storage_Folder_Maildir extends Zend_Mail_Storage_Maildir impleme
      */
     protected function _buildFolderTree()
     {
-        $this->_rootFolder = new Zend_Mail_Storage_Folder('/', '/', false);
+        $this->_rootFolder        = new Zend_Mail_Storage_Folder('/', '/', false);
         $this->_rootFolder->INBOX = new Zend_Mail_Storage_Folder('INBOX', 'INBOX', true);
 
         $dh = @opendir($this->_rootdir);
@@ -115,10 +115,10 @@ class Zend_Mail_Storage_Folder_Maildir extends Zend_Mail_Storage_Maildir impleme
         closedir($dh);
 
         sort($dirs);
-        $stack = array(null);
-        $folderStack = array(null);
+        $stack        = array(null);
+        $folderStack  = array(null);
         $parentFolder = $this->_rootFolder;
-        $parent = '.';
+        $parent       = '.';
 
         foreach ($dirs as $dir) {
             do {
@@ -128,14 +128,14 @@ class Zend_Mail_Storage_Folder_Maildir extends Zend_Mail_Storage_Maildir impleme
                         throw new Zend_Mail_Storage_Exception('error while reading maildir');
                     }
                     array_push($stack, $parent);
-                    $parent = $dir . $this->_delim;
-                    $folder = new Zend_Mail_Storage_Folder($local, substr($dir, 1), true);
+                    $parent               = $dir . $this->_delim;
+                    $folder               = new Zend_Mail_Storage_Folder($local, substr($dir, 1), true);
                     $parentFolder->$local = $folder;
                     array_push($folderStack, $parentFolder);
                     $parentFolder = $folder;
                     break;
-                } else if ($stack) {
-                    $parent = array_pop($stack);
+                } elseif ($stack) {
+                    $parent       = array_pop($stack);
                     $parentFolder = array_pop($folderStack);
                 }
             } while ($stack);
@@ -163,10 +163,10 @@ class Zend_Mail_Storage_Folder_Maildir extends Zend_Mail_Storage_Maildir impleme
             $rootFolder = substr($rootFolder, 6);
         }
         $currentFolder = $this->_rootFolder;
-        $subname = trim($rootFolder, $this->_delim);
+        $subname       = trim($rootFolder, $this->_delim);
         while ($currentFolder) {
             @list($entry, $subname) = @explode($this->_delim, $subname, 2);
-            $currentFolder = $currentFolder->$entry;
+            $currentFolder          = $currentFolder->$entry;
             if (!$subname) {
                 break;
             }
@@ -196,7 +196,7 @@ class Zend_Mail_Storage_Folder_Maildir extends Zend_Mail_Storage_Maildir impleme
 
         try {
             $this->_openMaildir($this->_rootdir . '.' . $folder->getGlobalName());
-        } catch(Zend_Mail_Storage_Exception $e) {
+        } catch (Zend_Mail_Storage_Exception $e) {
             // check what went wrong
             if (!$folder->isSelectable()) {
                 throw new Zend_Mail_Storage_Exception("{$this->_currentFolder} is not selectable", 0, $e);

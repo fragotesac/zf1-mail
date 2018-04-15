@@ -47,7 +47,7 @@ class Zend_Mail_MboxTest extends PHPUnit\Framework\TestCase
                 mkdir($this->_tmpdir);
             }
             $count = 0;
-            $dh = opendir($this->_tmpdir);
+            $dh    = opendir($this->_tmpdir);
             while (readdir($dh) !== false) {
                 ++$count;
             }
@@ -59,7 +59,7 @@ class Zend_Mail_MboxTest extends PHPUnit\Framework\TestCase
         }
 
         $this->_mboxOriginalFile = dirname(__FILE__) . '/_files/test.mbox/INBOX';
-        $this->_mboxFile = $this->_tmpdir . 'INBOX';
+        $this->_mboxFile         = $this->_tmpdir . 'INBOX';
 
         copy($this->_mboxOriginalFile, $this->_mboxFile);
     }
@@ -163,7 +163,7 @@ class Zend_Mail_MboxTest extends PHPUnit\Framework\TestCase
 
     public function testSize()
     {
-        $mail = new Zend_Mail_Storage_Mbox(array('filename' => $this->_mboxFile));
+        $mail        = new Zend_Mail_Storage_Mbox(array('filename' => $this->_mboxFile));
         $shouldSizes = array(1 => 397, 89, 694, 452, 497, 101, 139);
 
 
@@ -187,15 +187,15 @@ class Zend_Mail_MboxTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('Simple Message', $subject);
     }
 
-/*
-    public function testFetchTopBody()
-    {
-        $mail = new Zend_Mail_Storage_Mbox(array('filename' => $this->_mboxFile));
+    /*
+        public function testFetchTopBody()
+        {
+            $mail = new Zend_Mail_Storage_Mbox(array('filename' => $this->_mboxFile));
 
-        $content = $mail->getHeader(3, 1)->getContent();
-        $this->assertEquals('Fair river! in thy bright, clear flow', trim($content));
-    }
-*/
+            $content = $mail->getHeader(3, 1)->getContent();
+            $this->assertEquals('Fair river! in thy bright, clear flow', trim($content));
+        }
+    */
 
     public function testFetchMessageHeader()
     {
@@ -209,7 +209,7 @@ class Zend_Mail_MboxTest extends PHPUnit\Framework\TestCase
     {
         $mail = new Zend_Mail_Storage_Mbox(array('filename' => $this->_mboxFile));
 
-        $content = $mail->getMessage(3)->getContent();
+        $content         = $mail->getMessage(3)->getContent();
         list($content, ) = explode("\n", $content, 2);
         $this->assertEquals('Fair river! in thy bright, clear flow', trim($content));
     }
@@ -251,11 +251,11 @@ class Zend_Mail_MboxTest extends PHPUnit\Framework\TestCase
     {
         $mail = new Zend_Mail_Storage_Mbox(array('filename' => $this->_mboxFile));
 
-        $count = $mail->countMessages();
+        $count   = $mail->countMessages();
         $content = $mail->getMessage(1)->getContent();
 
         $serialzed = serialize($mail);
-        $mail = null;
+        $mail      = null;
         unlink($this->_mboxFile);
         // otherwise this test is to fast for a mtime change
         sleep(2);
@@ -270,11 +270,11 @@ class Zend_Mail_MboxTest extends PHPUnit\Framework\TestCase
     {
         $mail = new Zend_Mail_Storage_Mbox(array('filename' => $this->_mboxFile));
 
-        $count = $mail->countMessages();
+        $count   = $mail->countMessages();
         $content = $mail->getMessage(1)->getContent();
 
         $serialzed = serialize($mail);
-        $mail = null;
+        $mail      = null;
 
         $stat = stat($this->_mboxFile);
         chmod($this->_mboxFile, 0);
@@ -304,7 +304,7 @@ class Zend_Mail_MboxTest extends PHPUnit\Framework\TestCase
                 $this->markTestSkipped('seems like you are root and we therefore cannot test the error handling');
             }
             $this->fail('no exception while waking with non readable file');
-         }
+        }
     }
 
     public function testUniqueId()
@@ -319,7 +319,7 @@ class Zend_Mail_MboxTest extends PHPUnit\Framework\TestCase
             $this->assertEquals($num, $id);
 
             if ($mail->getNumberByUniqueId($id) != $num) {
-                    $this->fail('reverse lookup failed');
+                $this->fail('reverse lookup failed');
             }
         }
     }
@@ -336,5 +336,4 @@ class Zend_Mail_MboxTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($mail->getMessage(2)->subject, 'test2');
         $this->assertEquals($mail->getMessage(2)->getContent(), '');
     }
-
 }

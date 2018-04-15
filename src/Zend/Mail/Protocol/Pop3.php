@@ -98,8 +98,8 @@ class Zend_Mail_Protocol_Pop3
             $port = $ssl == 'SSL' ? 995 : 110;
         }
 
-        $errno  =  0;
-        $errstr = '';
+        $errno         = 0;
+        $errstr        = '';
         $this->_socket = @fsockopen($host, $port, $errno, $errstr, self::TIMEOUT_CONNECTION);
         if (!$this->_socket) {
             throw new Zend_Mail_Protocol_Exception('cannot connect to host; error = ' . $errstr .
@@ -162,7 +162,7 @@ class Zend_Mail_Protocol_Pop3
         if (strpos($result, ' ')) {
             list($status, $message) = explode(' ', $result, 2);
         } else {
-            $status = $result;
+            $status  = $result;
             $message = '';
         }
 
@@ -172,7 +172,7 @@ class Zend_Mail_Protocol_Pop3
 
         if ($multiline) {
             $message = '';
-            $line = fgets($this->_socket);
+            $line    = fgets($this->_socket);
             while ($line && rtrim($line, "\r\n") != '.') {
                 if ($line[0] == '.') {
                     $line = substr($line, 1);
@@ -274,8 +274,8 @@ class Zend_Mail_Protocol_Pop3
     public function status(&$messages, &$octets)
     {
         $messages = 0;
-        $octets = 0;
-        $result = $this->request('STAT');
+        $octets   = 0;
+        $result   = $this->request('STAT');
 
         list($messages, $octets) = explode(' ', $result);
     }
@@ -297,13 +297,13 @@ class Zend_Mail_Protocol_Pop3
             return (int)$result;
         }
 
-        $result = $this->request('LIST', true);
+        $result   = $this->request('LIST', true);
         $messages = array();
-        $line = strtok($result, "\n");
+        $line     = strtok($result, "\n");
         while ($line) {
-            list($no, $size) = explode(' ', trim($line));
+            list($no, $size)    = explode(' ', trim($line));
             $messages[(int)$no] = (int)$size;
-            $line = strtok("\n");
+            $line               = strtok("\n");
         }
 
         return $messages;
@@ -328,18 +328,17 @@ class Zend_Mail_Protocol_Pop3
 
         $result = $this->request('UIDL', true);
 
-        $result = explode("\n", $result);
+        $result   = explode("\n", $result);
         $messages = array();
         foreach ($result as $line) {
             if (!$line) {
                 continue;
             }
-            list($no, $id) = explode(' ', trim($line), 2);
+            list($no, $id)      = explode(' ', trim($line), 2);
             $messages[(int)$no] = $id;
         }
 
         return $messages;
-
     }
 
 

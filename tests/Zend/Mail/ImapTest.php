@@ -36,7 +36,7 @@ class Zend_Mail_ImapTest extends PHPUnit\Framework\TestCase
     public function setUp()
     {
         if (!(defined('TESTS_ZEND_MAIL_IMAP_ENABLED') && constant('TESTS_ZEND_MAIL_IMAP_ENABLED') == true)) {
-            $this->markTestSkipped("Test not enabled in TestConfiguration.php");
+            $this->markTestSkipped('Test not enabled in TestConfiguration.php');
         }
 
         $this->_params = array('host'     => TESTS_ZEND_MAIL_IMAP_HOST,
@@ -52,8 +52,10 @@ class Zend_Mail_ImapTest extends PHPUnit\Framework\TestCase
             }
 
             $this->_cleanDir(TESTS_ZEND_MAIL_SERVER_TESTDIR);
-            $this->_copyDir(dirname(__FILE__) . '/_files/test.' . TESTS_ZEND_MAIL_SERVER_FORMAT,
-                            TESTS_ZEND_MAIL_SERVER_TESTDIR);
+            $this->_copyDir(
+                dirname(__FILE__) . '/_files/test.' . TESTS_ZEND_MAIL_SERVER_FORMAT,
+                            TESTS_ZEND_MAIL_SERVER_TESTDIR
+            );
         }
     }
 
@@ -82,7 +84,7 @@ class Zend_Mail_ImapTest extends PHPUnit\Framework\TestCase
             if ($entry == '.' || $entry == '..' || $entry == '.svn') {
                 continue;
             }
-            $fullname = $dir  . DIRECTORY_SEPARATOR . $entry;
+            $fullname = $dir . DIRECTORY_SEPARATOR . $entry;
             $destname = $dest . DIRECTORY_SEPARATOR . $entry;
             if (is_dir($fullname)) {
                 mkdir($destname);
@@ -261,16 +263,16 @@ class Zend_Mail_ImapTest extends PHPUnit\Framework\TestCase
             $this->fail('exception raised while closing imap connection');
         }
     }
-/*
-    currently imap has no top
+    /*
+        currently imap has no top
 
-    public function testHasTop()
-    {
-        $mail = new Zend_Mail_Storage_Imap($this->_params);
+        public function testHasTop()
+        {
+            $mail = new Zend_Mail_Storage_Imap($this->_params);
 
-        $this->assertTrue($mail->hasTop);
-    }
-*/
+            $this->assertTrue($mail->hasTop);
+        }
+    */
     public function testHasCreate()
     {
         $mail = new Zend_Mail_Storage_Imap($this->_params);
@@ -299,7 +301,7 @@ class Zend_Mail_ImapTest extends PHPUnit\Framework\TestCase
 
     public function testSize()
     {
-        $mail = new Zend_Mail_Storage_Imap($this->_params);
+        $mail        = new Zend_Mail_Storage_Imap($this->_params);
         $shouldSizes = array(1 => 397, 89, 694, 452, 497, 101, 139);
 
 
@@ -323,17 +325,17 @@ class Zend_Mail_ImapTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('Simple Message', $subject);
     }
 
-/*
-    currently imap has no top
+    /*
+        currently imap has no top
 
-    public function testFetchTopBody()
-    {
-        $mail = new Zend_Mail_Storage_Imap($this->_params);
+        public function testFetchTopBody()
+        {
+            $mail = new Zend_Mail_Storage_Imap($this->_params);
 
-        $content = $mail->getHeader(3, 1)->getContent();
-        $this->assertEquals('Fair river! in thy bright, clear flow', trim($content));
-    }
-*/
+            $content = $mail->getHeader(3, 1)->getContent();
+            $this->assertEquals('Fair river! in thy bright, clear flow', trim($content));
+        }
+    */
     public function testFetchMessageHeader()
     {
         $mail = new Zend_Mail_Storage_Imap($this->_params);
@@ -346,7 +348,7 @@ class Zend_Mail_ImapTest extends PHPUnit\Framework\TestCase
     {
         $mail = new Zend_Mail_Storage_Imap($this->_params);
 
-        $content = $mail->getMessage(3)->getContent();
+        $content         = $mail->getMessage(3)->getContent();
         list($content, ) = explode("\n", $content, 2);
         $this->assertEquals('Fair river! in thy bright, clear flow', trim($content));
     }
@@ -434,7 +436,7 @@ class Zend_Mail_ImapTest extends PHPUnit\Framework\TestCase
 
     public function testKeyLocalName()
     {
-        $mail = new Zend_Mail_Storage_Imap($this->_params);
+        $mail     = new Zend_Mail_Storage_Imap($this->_params);
         $iterator = new RecursiveIteratorIterator($mail->getFolders(), RecursiveIteratorIterator::SELF_FIRST);
         // we search for this folder because we can't assume a order while iterating
         $search_folders = array('subfolder'      => 'subfolder',
@@ -456,7 +458,7 @@ class Zend_Mail_ImapTest extends PHPUnit\Framework\TestCase
 
     public function testSelectable()
     {
-        $mail = new Zend_Mail_Storage_Imap($this->_params);
+        $mail     = new Zend_Mail_Storage_Imap($this->_params);
         $iterator = new RecursiveIteratorIterator($mail->getFolders(), RecursiveIteratorIterator::SELF_FIRST);
 
         foreach ($iterator as $localName => $folder) {
@@ -534,7 +536,7 @@ class Zend_Mail_ImapTest extends PHPUnit\Framework\TestCase
             }
 
             if ($mail->getNumberByUniqueId($id) != $num) {
-                    $this->fail('reverse lookup failed');
+                $this->fail('reverse lookup failed');
             }
         }
     }
@@ -638,7 +640,7 @@ class Zend_Mail_ImapTest extends PHPUnit\Framework\TestCase
 
     public function testAppend()
     {
-        $mail = new Zend_Mail_Storage_Imap($this->_params);
+        $mail  = new Zend_Mail_Storage_Imap($this->_params);
         $count = $mail->countMessages();
 
         $message = '';

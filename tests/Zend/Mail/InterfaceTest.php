@@ -154,7 +154,7 @@ class Zend_Mail_InterfaceTest extends PHPUnit\Framework\TestCase
 
     public function testGetHeaders()
     {
-        $list = new Zend_Mail_Storage_Mbox(array('filename' => $this->_mboxFile));
+        $list    = new Zend_Mail_Storage_Mbox(array('filename' => $this->_mboxFile));
         $headers = $list[1]->getHeaders();
         $this->assertTrue(count($headers) > 0);
     }
