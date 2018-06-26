@@ -858,7 +858,7 @@ class Zend_Mail_MailTest extends PHPUnit\Framework\TestCase
     {
         $mail = new Zend_Mail();
         $mail->setReplyTo('foo@example.com', 'foobar');
-        $this->assertEquals(0, count($mail->getRecipients()));
+        $this->assertCount(0, $mail->getRecipients());
     }
 
     public function testGetReplyToReturnsReplyTo()
