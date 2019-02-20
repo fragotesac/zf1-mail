@@ -55,7 +55,7 @@ class Zend_Mail_Pop3Test extends PHPUnit\Framework\TestCase
             $this->_cleanDir(TESTS_ZEND_MAIL_SERVER_TESTDIR);
             $this->_copyDir(
                 dirname(__FILE__) . '/_files/test.' . TESTS_ZEND_MAIL_SERVER_FORMAT,
-                            TESTS_ZEND_MAIL_SERVER_TESTDIR
+                TESTS_ZEND_MAIL_SERVER_TESTDIR
             );
         }
     }

@@ -1067,8 +1067,8 @@ class Zend_Mail_MailTest extends PHPUnit\Framework\TestCase
                         if (ord($encodedText[$i]) > 127) {
                             $this->fail(sprintf(
                                 'No non US-ASCII characters allowed, but line %d has them: %s',
-                                 $i + 1,
-                                 $parts[$i]
+                                $i + 1,
+                                $parts[$i]
                             ));
                         }
                     }

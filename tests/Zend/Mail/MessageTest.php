@@ -139,7 +139,7 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
 
         $this->assertEquals(
             $message->getHeader('subject', 'string'),
-                           'test' . Zend_Mime::LINEEND . 'test2' . Zend_Mime::LINEEND . 'multipart'
+            'test' . Zend_Mime::LINEEND . 'test2' . Zend_Mime::LINEEND . 'multipart'
         );
         $this->assertEquals($message->getHeader('subject'), array('test', 'test2', 'multipart'));
     }
@@ -150,7 +150,7 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
 
         $this->assertEquals(
             Zend_Mime_Decode::splitContentType($message->ContentType),
-                            array('type' => 'multipart/alternative', 'boundary' => 'crazy-multipart')
+            array('type' => 'multipart/alternative', 'boundary' => 'crazy-multipart')
         );
     }
 
