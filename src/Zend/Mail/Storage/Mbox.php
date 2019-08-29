@@ -217,11 +217,18 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
     protected function _isMboxFile($file, $fileIsString = true)
     {
         if ($fileIsString) {
+            if (is_dir($file)) {
+                return false;
+            }
+
             $file = @fopen($file, 'r');
             if (!$file) {
                 return false;
             }
         } else {
+            if (is_dir(stream_get_meta_data($file)['uri'])) {
+                return false;
+            }
             fseek($file, 0);
         }
 

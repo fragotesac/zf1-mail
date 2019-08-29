@@ -123,7 +123,7 @@ final class Zend_Mail_Header_HeaderValue
      * Raises an exception if invalid.
      *
      * @param string $value
-     * @throws Exception\RuntimeException
+     * @throws RuntimeException
      * @return void
      */
     public static function assertValid($value)

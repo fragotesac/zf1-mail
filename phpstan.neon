@@ -1,5 +1,5 @@
 parameters:
-    level: 1
+    level: 2
     paths:
         - ./
     excludes_analyse:
@@ -8,3 +8,8 @@ parameters:
     ignoreErrors:
         - '#Zend_Mail_.+::__construct\(\) does not call parent constructor from Zend_Mail_.+\.#'
         - '#Variable \$.+ might not be defined\.#'
+        # `Zend_Mail_Storage_Folder` uses __get and __set to create/retrieve folders, could make this a universal object
+        # crate, but this is the only case of it being used here.
+        -
+            message: '#Access to an undefined property Zend_Mail_Storage_Folder::\$INBOX\.#'
+            path: %currentWorkingDirectory%/src/Zend/Mail/Storage/Folder/Maildir.php

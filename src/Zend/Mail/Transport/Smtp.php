@@ -84,7 +84,7 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
     /**
      * Instance of Zend_Mail_Protocol_Smtp
      *
-     * @var Zend_Mail_Protocol_Abstract
+     * @var Zend_Mail_Protocol_Smtp
      */
     protected $_connection;
 
@@ -206,7 +206,7 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
      * @access  protected
      * @param   array $headers
      * @return  void
-     * @throws  Zend_Transport_Exception
+     * @throws  Zend_Mail_Transport_Exception
      */
     protected function _prepareHeaders($headers)
     {

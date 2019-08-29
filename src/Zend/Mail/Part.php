@@ -264,10 +264,10 @@ class Zend_Mail_Part implements RecursiveIterator, Zend_Mail_Part_Interface, Cou
             throw new Zend_Mail_Exception('part not found');
         }
 
-        if ($this->_mail && $this->_mail->hasFetchPart) {
-            // TODO: fetch part
-            // return
-        }
+        //if ($this->_mail && $this->_mail->hasFetchPart) {
+        // TODO: fetch part
+        // return
+        //}
 
         $this->_cacheContent();
 
@@ -294,10 +294,10 @@ class Zend_Mail_Part implements RecursiveIterator, Zend_Mail_Part_Interface, Cou
             return $this->_countParts;
         }
 
-        if ($this->_mail && $this->_mail->hasFetchPart) {
-            // TODO: fetch part
-            // return
-        }
+        //if ($this->_mail && $this->_mail->hasFetchPart) {
+        // TODO: fetch part
+        // return
+        //}
 
         $this->_cacheContent();
 
@@ -404,7 +404,7 @@ class Zend_Mail_Part implements RecursiveIterator, Zend_Mail_Part_Interface, Cou
      * @return string|array wanted part or all parts as array($firstName => firstPart, partname => value)
      * @throws Zend_Exception, Zend_Mail_Exception
      */
-    public function getHeaderField($name, $wantedPart = 0, $firstName = 0)
+    public function getHeaderField($name, $wantedPart = '0', $firstName = '0')
     {
         return Zend_Mime_Decode::splitHeaderField(current($this->getHeader($name, 'array')), $wantedPart, $firstName);
     }
