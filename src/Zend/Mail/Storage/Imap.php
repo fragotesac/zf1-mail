@@ -254,7 +254,7 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract implements Zend_
      * identify the message.
      *
      * @param   int $id number of message
-     * @return  null
+     * @return  void
      * @throws  Zend_Mail_Storage_Exception
      */
     public function removeMessage($id)

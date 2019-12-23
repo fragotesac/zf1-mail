@@ -245,6 +245,8 @@ class Zend_Mail_Part implements RecursiveIterator, Zend_Mail_Part_Interface, Cou
         foreach ($parts as $part) {
             $this->_parts[$counter++] = new $partClass(array('headers' => $part['header'], 'content' => $part['body']));
         }
+
+        return null;
     }
 
     /**

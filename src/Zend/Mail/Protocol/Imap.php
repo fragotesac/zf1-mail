@@ -76,7 +76,7 @@ class Zend_Mail_Protocol_Imap
      * @param  string      $host  hostname or IP address of IMAP server
      * @param  int|null    $port  of IMAP server, default is 143 (993 for ssl)
      * @param  string|bool $ssl   use 'SSL', 'TLS' or false
-     * @return string welcome message
+     * @return void
      * @throws Zend_Mail_Protocol_Exception
      */
     public function connect($host, $port = null, $ssl = false)

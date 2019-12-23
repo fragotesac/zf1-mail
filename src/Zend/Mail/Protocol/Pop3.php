@@ -222,6 +222,8 @@ class Zend_Mail_Protocol_Pop3
 
         fclose($this->_socket);
         $this->_socket = null;
+
+        return null;
     }
 
 
