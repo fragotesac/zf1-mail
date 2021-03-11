@@ -36,7 +36,7 @@ class Zend_Mail_MaildirFolderTest extends PHPUnit\Framework\TestCase
     protected $_tmpdir;
     protected $_subdirs = array('.', '.subfolder', '.subfolder.test');
 
-    public function setUp()
+    public function setUp(): void
     {
         if (!(defined('TESTS_ZEND_MAIL_MAILDIR_ENABLED') && constant('TESTS_ZEND_MAIL_MAILDIR_ENABLED'))) {
             $this->markTestSkipped('Test not enabled in TestConfiguration.php');
@@ -96,7 +96,7 @@ class Zend_Mail_MaildirFolderTest extends PHPUnit\Framework\TestCase
         }
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         foreach (array_reverse($this->_subdirs) as $dir) {
             foreach (array('cur', 'new') as $subdir) {

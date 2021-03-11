@@ -33,7 +33,7 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
 {
     protected $_file;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->_file = tempnam(sys_get_temp_dir(), 'zm_');
         $mail        = file_get_contents(dirname(__FILE__) . '/_files/mail.txt');
@@ -41,7 +41,7 @@ class Zend_Mail_MessageTest extends PHPUnit\Framework\TestCase
         file_put_contents($this->_file, $mail);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         if (file_exists($this->_file)) {
             unlink($this->_file);

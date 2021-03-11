@@ -301,7 +301,9 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
      */
     public function close()
     {
-        @fclose($this->_fh);
+        if (is_resource($this->_fh)) {
+            @fclose($this->_fh);
+        }
         $this->_positions = array();
     }
 

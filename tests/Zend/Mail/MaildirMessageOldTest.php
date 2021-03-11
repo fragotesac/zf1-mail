@@ -53,7 +53,7 @@ class Zend_Mail_MaildirMessageOldTest extends PHPUnit\Framework\TestCase
     protected $_maildir;
     protected $_tmpdir;
 
-    public function setUp()
+    public function setUp(): void
     {
         if (!(defined('TESTS_ZEND_MAIL_MAILDIR_ENABLED') && constant('TESTS_ZEND_MAIL_MAILDIR_ENABLED'))) {
             $this->markTestSkipped('Test not enabled in TestConfiguration.php');
@@ -103,7 +103,7 @@ class Zend_Mail_MaildirMessageOldTest extends PHPUnit\Framework\TestCase
         }
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         foreach (array('cur', 'new') as $dir) {
             $dh = opendir($this->_tmpdir . $dir);

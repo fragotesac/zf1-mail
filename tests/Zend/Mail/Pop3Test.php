@@ -33,7 +33,7 @@ class Zend_Mail_Pop3Test extends PHPUnit\Framework\TestCase
 {
     protected $_params;
 
-    public function setUp()
+    public function setUp(): void
     {
         if (!(defined('TESTS_ZEND_MAIL_POP3_ENABLED') && constant('TESTS_ZEND_MAIL_POP3_ENABLED') == true)) {
             $this->markTestSkipped('Test not enabled in TestConfiguration.php');
@@ -336,7 +336,7 @@ class Zend_Mail_Pop3Test extends PHPUnit\Framework\TestCase
     public function testServerCapa()
     {
         $mail = new Zend_Mail_Protocol_Pop3($this->_params['host']);
-        $this->assertInternalType('array', $mail->capa());
+        $this->assertIsArray($mail->capa());
     }
 
     public function testServerUidl()
