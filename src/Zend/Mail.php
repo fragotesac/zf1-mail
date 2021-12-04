@@ -1161,7 +1161,7 @@ class Zend_Mail extends Zend_Mime_Message
     /**
      * Filter of name data
      *
-     * @param string $name
+     * @param string|null $name
      * @return string
      */
     protected function _filterName($name)
@@ -1174,7 +1174,7 @@ class Zend_Mail extends Zend_Mime_Message
                       '>'  => ']',
         );
 
-        return trim(strtr($name, $rule));
+        return trim(strtr($name ?? '', $rule));
     }
 
     /**

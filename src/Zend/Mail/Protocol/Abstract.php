@@ -309,7 +309,7 @@ abstract class Zend_Mail_Protocol_Abstract
     /**
      * Get a line from the stream.
      *
-     * @var    integer $timeout Per-request timeout value if applicable
+     * @param    integer|null $timeout Per-request timeout value if applicable
      * @throws Zend_Mail_Protocol_Exception
      * @return string
      */
