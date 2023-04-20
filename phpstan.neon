@@ -12,3 +12,5 @@ parameters:
         -
             message: '#Access to an undefined property Zend_Mail_Storage_Folder::\$INBOX\.#'
             path: %currentWorkingDirectory%/src/Zend/Mail/Storage/Folder/Maildir.php
+includes:
+    - phpstan-php7.php

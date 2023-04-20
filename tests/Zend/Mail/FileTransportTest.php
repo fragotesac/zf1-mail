@@ -34,6 +34,7 @@ class Zend_Mail_FileTransportTest extends PHPUnit\Framework\TestCase
     protected $_params;
     protected $_transport;
     protected $_tmpdir;
+    protected $createdTmpDir;
 
     public function setUp(): void
     {

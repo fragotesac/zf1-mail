@@ -394,7 +394,7 @@ class Zend_Mail_Protocol_Imap
         $result = array();
         foreach ($list as $k => $v) {
             if (!is_array($v)) {
-//              $result[] = $this->escapeString($v);
+                //              $result[] = $this->escapeString($v);
                 $result[] = $v;
                 continue;
             }
