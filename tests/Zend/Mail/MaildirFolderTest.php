@@ -114,7 +114,7 @@ class Zend_Mail_MaildirFolderTest extends PHPUnit\Framework\TestCase
                 closedir($dh);
                 rmdir($this->_tmpdir . $dir . '/' . $subdir);
             }
-            if ($dir != '.') {
+            if ($dir != '.' && is_dir($this->_tmpdir . $dir)) {
                 rmdir($this->_tmpdir . $dir);
             }
         }

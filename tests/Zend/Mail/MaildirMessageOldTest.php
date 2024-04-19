@@ -106,6 +106,9 @@ class Zend_Mail_MaildirMessageOldTest extends PHPUnit\Framework\TestCase
     public function tearDown(): void
     {
         foreach (array('cur', 'new') as $dir) {
+            if (!is_dir($this->_tmpdir . $dir)) {
+                continue;
+            }
             $dh = opendir($this->_tmpdir . $dir);
             while (($entry = readdir($dh)) !== false) {
                 $entry = $this->_tmpdir . $dir . '/' . $entry;
